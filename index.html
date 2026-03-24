@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Buku Induk Siswa | MA Bidayatul Hidayah</title>
-    <!-- Google Fonts & Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Buku Induk Siswa - MA Bidayatul Hidayah</title>
     <style>
         * {
             margin: 0;
@@ -15,722 +12,782 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #eef5e6 0%, #e0e8d6 100%);
-            padding: 2rem 1.5rem;
-            color: #1e2f1c;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0b2f1c 0%, #1e4a2f 100%);
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        /* Container utama */
-        .master-container {
+        .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+            background: #fffef7;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
             overflow: hidden;
-            border: 1px solid rgba(198, 160, 60, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
 
-        /* Header hijau keemasan */
-        .golden-header {
-            background: linear-gradient(98deg, #1f3b1a 0%, #2b5522 100%);
-            padding: 1.8rem 2rem;
+        .header {
+            background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%);
+            padding: 28px 32px;
+            text-align: center;
+            border-bottom: 4px solid #d4af37;
             position: relative;
-            border-bottom: 4px solid #e8b65a;
         }
 
-        .golden-header h1 {
-            font-size: 1.9rem;
-            font-weight: 700;
-            color: #fff3df;
-            letter-spacing: -0.3px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: space-between;
+        .header::before, .header::after {
+            content: "✧";
+            position: absolute;
+            font-size: 24px;
+            color: #d4af37;
+            opacity: 0.5;
+        }
+        .header::before { top: 20px; left: 30px; }
+        .header::after { bottom: 20px; right: 30px; }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        .golden-header h1 i {
-            color: #e8b65a;
-            font-size: 2rem;
+        .header p {
+            font-size: 1em;
+            color: #e8e0b0;
         }
 
-        .school-badge {
-            font-size: 0.85rem;
-            background: rgba(232, 182, 90, 0.2);
-            padding: 6px 14px;
-            border-radius: 40px;
-            color: #fae6b3;
-            font-weight: 500;
+        .sync-status {
+            margin-top: 12px;
+            padding: 6px 16px;
+            border-radius: 30px;
+            background: rgba(212, 175, 55, 0.2);
+            display: inline-block;
+            font-size: 0.8em;
+            color: #d4af37;
         }
 
-        .sub {
-            color: #d9e0b5;
-            margin-top: 10px;
-            font-size: 0.85rem;
-            font-weight: 400;
+        .content {
+            padding: 32px;
         }
 
-        /* Konten utama */
-        .content-wrapper {
-            padding: 2rem 2rem 2rem 2rem;
+        .form-section {
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 20px;
+            margin-bottom: 32px;
+            border: 1px solid #e8e0b0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
 
-        /* Form card dengan aksen emas */
-        .form-card {
-            background: #fefcf5;
-            border-radius: 28px;
-            padding: 1.5rem 1.8rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
-            border: 1px solid #ecd9a3;
-            transition: all 0.2s;
-        }
-
-        .form-title {
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: #2c5e2a;
-            border-left: 5px solid #e8b65a;
-            padding-left: 16px;
-            margin-bottom: 1.4rem;
+        .form-section h2 {
+            color: #1f4d2c;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #d4af37;
+            display: inline-block;
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.2rem 1.8rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
         }
 
-        .input-group {
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1f4d2c;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e8e0b0;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        .photo-upload-area {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            align-items: center;
+            gap: 12px;
         }
 
-        .input-group label {
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #7b6e3c;
-        }
-
-        .input-group input, .input-group textarea {
-            padding: 12px 14px;
-            border: 1.5px solid #e2d5b6;
-            border-radius: 18px;
-            font-family: 'Inter', monospace;
-            font-size: 0.9rem;
-            transition: 0.2s;
-            background: white;
-        }
-
-        .input-group input:focus, .input-group textarea:focus {
-            outline: none;
-            border-color: #e8b65a;
-            box-shadow: 0 0 0 3px rgba(232, 182, 90, 0.2);
-        }
-
-        .photo-preview-area {
+        .photo-preview {
+            width: 160px;
+            height: 160px;
+            border: 3px dashed #d4af37;
+            border-radius: 16px;
+            background: #faf9f0;
             display: flex;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-        .preview-img {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border-radius: 20px;
-            border: 2px solid #e8b65a;
-            background: #f7f1e0;
-        }
-        .btn-file {
-            background: #f1e7d2;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            justify-content: center;
+            overflow: hidden;
             cursor: pointer;
-            border: none;
-            color: #5a471c;
-        }
-        .btn-file:hover {
-            background: #e8dbbc;
+            transition: all 0.3s;
         }
 
-        .action-buttons {
+        .photo-preview:hover {
+            border-color: #1f4d2c;
+            transform: scale(1.02);
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-preview span {
+            color: #9b9a7a;
+            font-size: 12px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .photo-buttons {
             display: flex;
+            gap: 10px;
+        }
+
+        .btn-photo {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-photo.primary { background: #1f4d2c; color: #d4af37; }
+        .btn-photo.danger { background: #dc3545; color: white; }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 28px;
             flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 25px;
-            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
         .btn-primary {
-            background: #e8b65a;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 700;
-            color: #2b3b1f;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%);
+            color: #d4af37;
         }
-
-        .btn-primary:hover {
-            background: #d9a745;
-            transform: translateY(-1px);
-        }
+        .btn-primary:hover { transform: translateY(-2px); }
 
         .btn-secondary {
-            background: #eef2e6;
-            border: 1px solid #c7b27a;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            color: #4a5b2f;
-            cursor: pointer;
+            background: #f0ede0;
+            color: #1f4d2c;
+            border: 1px solid #d4af37;
+        }
+        .btn-secondary:hover { background: #e8e0b0; }
+
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-info { background: #17a2b8; color: white; }
+
+        .table-section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #e8e0b0;
         }
 
-        .btn-danger {
-            background: #fce4e0;
-            border: 1px solid #e0b3a6;
-            color: #aa5e4a;
-        }
-
-        /* Tabel siswa */
-        .table-wrapper {
-            overflow-x: auto;
-            border-radius: 24px;
-            border: 1px solid #eedfa8;
-            background: white;
-            margin-top: 20px;
-        }
-
-        .student-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-            min-width: 900px;
-        }
-
-        .student-table th {
-            background: #2f5e2b;
-            color: #fffaec;
-            padding: 15px 12px;
-            font-weight: 600;
-            text-align: center;
-            font-size: 0.8rem;
-        }
-
-        .student-table td {
-            padding: 14px 10px;
-            border-bottom: 1px solid #efe2c6;
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .student-table tr:hover {
-            background: #fef8ec;
-        }
-
-        .photo-thumb {
-            width: 48px;
-            height: 48px;
-            object-fit: cover;
-            border-radius: 14px;
-            background: #f0e9d8;
-            border: 1px solid #e0ce9e;
-        }
-
-        .no-photo-icon {
-            font-size: 2rem;
-            color: #bfaa73;
-        }
-
-        .action-icons i {
-            font-size: 1.2rem;
-            margin: 0 8px;
-            cursor: pointer;
-            transition: 0.1s;
-        }
-
-        .edit-icon { color: #e8b65a; }
-        .delete-icon { color: #c27e5e; }
-        .action-icons i:hover { transform: scale(1.1); }
-
-        /* Print styling */
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-                margin: 0;
-            }
-            .no-print, .action-buttons, .form-card, .btn-primary, .btn-secondary, .golden-header .school-badge, .action-icons, .print-hide-btn, .btn-danger, #deleteAllBtn, #printBtn, .btn-file {
-                display: none !important;
-            }
-            .master-container {
-                box-shadow: none;
-                border-radius: 0;
-                margin: 0;
-                width: 100%;
-            }
-            .content-wrapper {
-                padding: 0.5rem;
-            }
-            .student-table th, .student-table td {
-                border: 1px solid #aaa;
-                font-size: 9pt;
-            }
-            .photo-thumb {
-                width: 35px;
-                height: 35px;
-            }
-            .golden-header {
-                background: #1f3b1a;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            .golden-header h1 {
-                color: #ffefcf;
-            }
-        }
-
-        /* info panel & panduan */
-        .info-panel {
-            background: #f9f5e9;
-            border-radius: 24px;
-            margin-top: 2rem;
-            padding: 1rem 1.5rem;
-            border-left: 5px solid #e8b65a;
-            font-size: 0.85rem;
-        }
-
-        .info-panel summary {
-            font-weight: 700;
-            color: #2f632a;
-            cursor: pointer;
-        }
-
-        .footer-stats {
+        .table-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 20px 0 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .total-badge {
+            background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%);
+            padding: 6px 14px;
+            border-radius: 30px;
+            color: #d4af37;
+            font-size: 0.85em;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #eee8d0;
+        }
+
+        th {
+            background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%);
+            color: #d4af37;
+        }
+
+        tr:hover { background: #fefbe6; }
+
+        .student-photo {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid #d4af37;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
-        button i {
-            pointer-events: none;
+        .btn-icon {
+            padding: 6px 12px;
+            font-size: 11px;
+            border-radius: 20px;
         }
-        textarea {
-            resize: vertical;
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            display: none;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 4px solid #e8e0b0;
+            border-top: 4px solid #1f4d2c;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: white;
+            z-index: 10000;
+            animation: slideUp 0.3s ease;
+            display: none;
+        }
+
+        .toast-notification.success { background: #28a745; }
+        .toast-notification.error { background: #dc3545; }
+        .toast-notification.info { background: #17a2b8; }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .guide-section {
+            margin-top: 30px;
+            background: #fefbe6;
+            border-radius: 16px;
+            padding: 20px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .guide-section summary {
+            font-weight: 600;
+            color: #1f4d2c;
+            cursor: pointer;
+        }
+
+        @media print {
+            .btn-group, .form-section, .action-btns, .no-print, .sync-status, .guide-section { display: none; }
+            body { background: white; padding: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .content { padding: 20px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .btn-group .btn { width: 100%; }
         }
     </style>
 </head>
 <body>
-
-<div class="master-container">
-    <div class="golden-header">
-        <h1>
-            <span><i class="fas fa-book-open"></i> Buku Induk Siswa <br style="display: none;"> <span style="font-size: 1.3rem;">MA Bidayatul Hidayah</span></span>
-            <span class="school-badge"><i class="fas fa-graduation-cap"></i> Terintegrasi | Digital</span>
-        </h1>
-        <div class="sub"><i class="fas fa-database"></i> Data tersimpan secara lokal | Cetak & Arsipkan</div>
+    <div class="loading" id="loading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Memproses data...</p>
+        </div>
     </div>
 
-    <div class="content-wrapper">
-        <!-- FORM ENTRY DATA -->
-        <div class="form-card">
-            <div class="form-title"><i class="fas fa-user-plus"></i> Formulir Pendaftaran / Edit Siswa</div>
-            <form id="studentForm">
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label><i class="fas fa-id-card"></i> Nomor Induk Siswa (NIS) *</label>
-                        <input type="text" id="nis" placeholder="Contoh: 2024-001" required>
-                    </div>
-                    <div class="input-group">
-                        <label><i class="fas fa-user"></i> Nama Lengkap *</label>
-                        <input type="text" id="nama" placeholder="Nama lengkap" required>
-                    </div>
-                    <div class="input-group">
-                        <label><i class="fas fa-map-marker-alt"></i> Tempat Lahir *</label>
-                        <input type="text" id="tempatLahir" placeholder="Kota/Kabupaten" required>
-                    </div>
-                    <div class="input-group">
-                        <label><i class="fas fa-calendar-alt"></i> Tanggal Lahir *</label>
-                        <input type="date" id="tanggalLahir" required>
-                    </div>
-                    <div class="input-group">
-                        <label><i class="fas fa-home"></i> Alamat Rumah *</label>
-                        <textarea rows="2" id="alamat" placeholder="Alamat lengkap" required></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label><i class="fas fa-phone-alt"></i> No HP Siswa *</label>
-                        <input type="tel" id="noHp" placeholder="08xxxxxxxxxx" required>
-                    </div>
-                    <div class="input-group">
-                        <label><i class="fas fa-camera"></i> Foto Siswa (opsional)</label>
-                        <div class="photo-preview-area">
-                            <img id="photoPreview" class="preview-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='%23c9b16b'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="Preview">
-                            <input type="file" id="fotoUpload" accept="image/*" style="display: none;">
-                            <button type="button" class="btn-file" id="uploadPhotoBtn"><i class="fas fa-upload"></i> Pilih Foto</button>
-                            <button type="button" class="btn-file" id="removePhotoBtn" style="background:#e9dfca;"><i class="fas fa-trash-alt"></i> Hapus</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button type="submit" class="btn-primary" id="saveBtn"><i class="fas fa-save"></i> Simpan Siswa</button>
-                    <button type="button" class="btn-secondary" id="cancelEditBtn"><i class="fas fa-times"></i> Batal Edit</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- TOOLBAR DAN CETAK -->
-        <div class="footer-stats no-print">
-            <div><i class="fas fa-users"></i> Total Siswa: <strong id="totalCount">0</strong></div>
-            <div>
-                <button id="printBtn" class="btn-primary" style="background:#4a6b38; margin-right:10px;"><i class="fas fa-print"></i> Cetak Buku Induk</button>
-                <button id="deleteAllBtn" class="btn-secondary btn-danger"><i class="fas fa-trash"></i> Hapus Semua</button>
+    <div class="container">
+        <div class="header">
+            <h1>📖 BUKU INDUK SISWA</h1>
+            <p>MA Bidayatul Hidayah | Tahun Ajaran 2024/2025</p>
+            <div class="sync-status" id="syncStatus">
+                💾 Data tersimpan secara lokal | Cetak & Arsipkan
             </div>
         </div>
 
-        <!-- TABEL DATA SISWA -->
-        <div class="table-wrapper">
-            <table class="student-table" id="studentTable">
-                <thead>
-                    <tr><th>No</th><th>NIS</th><th>Nama Lengkap</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Alamat</th><th>No HP</th><th>Foto</th><th class="no-print">Aksi</th></tr>
-                </thead>
-                <tbody id="tableBody">
-                    <tr><td colspan="9" style="text-align:center;">Memuat data...</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- PANDUAN INTEGRASI GOOGLE SHEETS / DRIVE -->
-        <div class="info-panel no-print">
-            <details>
-                <summary><i class="fab fa-google"></i> 📘 Panduan Integrasi Google Sheets / Drive (Pihak Ketiga)</summary>
-                <div style="margin-top: 12px; line-height: 1.5;">
-                    <p><strong>🔗 Opsi menyimpan data ke Google Sheets secara otomatis:</strong> Anda dapat menghubungkan aplikasi ini dengan Google Sheets menggunakan Google Apps Script. Berikut langkah praktis:</p>
-                    <ol style="margin-left: 20px;">
-                        <li>Buat Google Sheet baru, beri nama "Buku_Induk_Siswa".</li>
-                        <li>Buka menu <strong>Extensions → Apps Script</strong>, tulis kode doPost untuk menerima data JSON (contoh ada di file terpisah).</li>
-                        <li>Deploy sebagai Web App (Execute as Me, Akses Anyone). Salin URL endpoint.</li>
-                        <li>Di aplikasi ini, Anda bisa menambahkan kode fetch ke endpoint setiap kali simpan data. Contoh fungsi syncToSheet() dengan mengirim array students.</li>
-                        <li>Atau gunakan <strong>Google Sheets API</strong> dengan token OAuth2 untuk pengelolaan penuh.</li>
-                    </ol>
-                    <p><strong>💡 Tips:</strong> Karena aplikasi ini berbasis localStorage, Anda bisa <strong>Ekspor manual</strong> dengan mencetak sebagai PDF atau menggunakan ekstensi browser. Kami juga menyediakan fungsi ekspor JSON sederhana (bisa ditambahkan).</p>
-                    <p><em>Jika ingin bantuan pengkodean endpoint Google Apps Script, silakan hubungi admin IT untuk implementasi lanjutan.</em></p>
-                    <hr style="margin: 8px 0;">
-                    <p><i class="fas fa-cloud-upload-alt"></i> <strong>Menggunakan Google Drive sebagai backup foto:</strong> Foto disimpan sebagai base64 dalam localStorage, namun untuk skalabilitas Anda bisa upload foto ke Drive dan simpan URL-nya. Modifikasi form untuk unggah ke drive menggunakan Picker API.</p>
+        <div class="content">
+            <!-- Form Entry Data -->
+            <div class="form-section">
+                <h2>📝 Formulir Pendaftaran / Edit Siswa</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>NOMOR INDUK SISWA (NIS) <span style="color:#dc3545;">*</span></label>
+                        <input type="text" id="nis" placeholder="Contoh: 2024-001">
+                    </div>
+                    <div class="form-group">
+                        <label>NAMA LENGKAP <span style="color:#dc3545;">*</span></label>
+                        <input type="text" id="nama" placeholder="Nama lengkap">
+                    </div>
+                    <div class="form-group">
+                        <label>TEMPAT LAHIR</label>
+                        <input type="text" id="tempat_lahir" placeholder="Kota/Kabupaten">
+                    </div>
+                    <div class="form-group">
+                        <label>TANGGAL LAHIR</label>
+                        <input type="date" id="tanggal_lahir">
+                    </div>
+                    <div class="form-group">
+                        <label>ALAMAT RUMAH</label>
+                        <textarea id="alamat" rows="2" placeholder="Alamat lengkap"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>NO HP SISWA</label>
+                        <input type="tel" id="no_hp" placeholder="08xxxxxxxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label>Foto Siswa <span style="font-weight: normal;">(OPSIONAL)</span></label>
+                        <div class="photo-upload-area">
+                            <div class="photo-preview" id="photoPreview" onclick="document.getElementById('foto').click()">
+                                <span>📸 Klik untuk upload foto</span>
+                            </div>
+                            <div class="photo-buttons">
+                                <button type="button" class="btn-photo primary" onclick="document.getElementById('foto').click()">📷 Pilih Foto</button>
+                                <button type="button" class="btn-photo danger" onclick="hapusFoto()">🗑️ Hapus</button>
+                            </div>
+                            <input type="file" id="foto" accept="image/*" style="display: none;" onchange="previewPhoto(this)">
+                        </div>
+                    </div>
                 </div>
-            </details>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="simpanData()">💾 Simpan Siswa</button>
+                    <button class="btn btn-secondary" onclick="resetForm()">✖️ Batal Edit</button>
+                </div>
+            </div>
+
+            <!-- Tabel Data Siswa -->
+            <div class="table-section">
+                <div class="table-header">
+                    <h2>📋 Daftar Siswa</h2>
+                    <div class="total-badge" id="totalSiswa">Total Siswa: 0</div>
+                </div>
+                <div class="btn-group" style="margin-bottom: 20px;">
+                    <button class="btn btn-secondary btn-icon" onclick="printTable()">🖨️ Cetak Buku Induk</button>
+                    <button class="btn btn-danger btn-icon" onclick="hapusSemua()">🗑️ Hapus Semua</button>
+                    <button class="btn btn-info btn-icon" onclick="exportToExcel()">📊 Export Excel</button>
+                    <button class="btn btn-info btn-icon" onclick="syncFromSheets()">🔄 Sync dari Google Sheets</button>
+                </div>
+                <div class="table-wrapper">
+                    <table id="studentTable">
+                        <thead>
+                            <tr><th>No</th><th>NIS</th><th>Nama Lengkap</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Alamat</th><th>No HP</th><th>Foto</th><th>Aksi</th></tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr><td colspan="9" style="text-align: center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Panduan Integrasi -->
+            <div class="guide-section">
+                <details>
+                    <summary>📘 Panduan Integrasi Google Sheets / Drive (Pihak Ketiga)</summary>
+                    <p>
+                        <strong>📌 Konfigurasi yang Sudah Disiapkan:</strong><br>
+                        • <strong>Google Drive Folder ID:</strong> <code>1S7NH1jS1gnFpYQl1u8qSVW6lIMbTg2x5</code><br>
+                        • <strong>Google Sheets ID:</strong> <code>1vswb5gV3c6p8k0ZQ29lRTBymYTVtg6skoSxbx-3EGaU</code><br><br>
+                        <strong>🔧 Langkah Setup Apps Script:</strong><br>
+                        1. Buka Google Sheets Anda → Extensions → Apps Script<br>
+                        2. Buat file <code>code.gs</code> dengan kode yang sudah disediakan<br>
+                        3. Ganti <code>SPREADSHEET_ID</code> dan <code>FOLDER_ID</code> dengan ID di atas<br>
+                        4. Deploy sebagai Web App (Execute as: Me, Access: Anyone)<br>
+                        5. Copy URL Deploy, ganti <code>SCRIPT_URL</code> di file ini<br>
+                        <br>
+                        <strong>🔗 URL Deploy saat ini (perlu diganti setelah deploy):</strong><br>
+                        <code id="scriptUrlDisplay" style="font-size: 11px; word-break: break-all;">https://script.google.com/macros/s/AKfycbwB2lBcehg1ZM5sE-0JvH6GjXg8gFSpfc-X972nnibdjV4-sWpHY0PPs2gQ_H5-XGdQtw/exec</code>
+                    </p>
+                </details>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    // ---------- GLOBAL DATA ----------
-    let students = [];           // array of student objects
-    let editMode = false;
-    let editId = null;
+    <script>
+        // ==================== KONFIGURASI ====================
+        // GOOGLE DRIVE FOLDER ID (dari link https://bit.ly/DriveFotoSiswa)
+        const DRIVE_FOLDER_ID = '1S7NH1jS1gnFpYQl1u8qSVW6lIMbTg2x5';
+        
+        // GOOGLE SHEETS ID (dari link https://bit.ly/IndukSiswaBook)
+        const SPREADSHEET_ID = '1vswb5gV3c6p8k0ZQ29lRTBymYTVtg6skoSxbx-3EGaU';
+        
+        // URL Apps Script - GANTI SETELAH DEPLOY!
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1RAF1bMqxnQllhgFSF5_yEleGCLScnh2jg0B5N5jpu9fTpzuxYAN-OzxfE660hMgbRA/exec';
+        
+        let students = [];
+        // ====================================================
 
-    // DOM elements
-    const nisInput = document.getElementById('nis');
-    const namaInput = document.getElementById('nama');
-    const tempatLahirInput = document.getElementById('tempatLahir');
-    const tanggalLahirInput = document.getElementById('tanggalLahir');
-    const alamatInput = document.getElementById('alamat');
-    const noHpInput = document.getElementById('noHp');
-    const fotoUpload = document.getElementById('fotoUpload');
-    const photoPreview = document.getElementById('photoPreview');
-    const uploadPhotoBtn = document.getElementById('uploadPhotoBtn');
-    const removePhotoBtn = document.getElementById('removePhotoBtn');
-    const saveBtn = document.getElementById('saveBtn');
-    const cancelEditBtn = document.getElementById('cancelEditBtn');
-    const tableBody = document.getElementById('tableBody');
-    const totalCountSpan = document.getElementById('totalCount');
-    const printBtn = document.getElementById('printBtn');
-    const deleteAllBtn = document.getElementById('deleteAllBtn');
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification ${type}`;
+            toast.innerHTML = message;
+            document.body.appendChild(toast);
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.animation = 'slideUp 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
 
-    let currentFotoBase64 = "";  // untuk menyimpan base64 sementara form
+        function showLoading() { document.getElementById('loading').style.display = 'flex'; }
+        function hideLoading() { document.getElementById('loading').style.display = 'none'; }
 
-    // Load dari localStorage
-    function loadData() {
-        const stored = localStorage.getItem('buku_induk_ma');
-        if(stored) {
-            students = JSON.parse(stored);
-        } else {
-            // Data contoh awal agar tidak kosong
-            students = [
-                {
-                    id: Date.now()+1,
-                    nis: "2024-001",
-                    nama: "Aisyah Putri Ramadhani",
-                    tempatLahir: "Malang",
-                    tanggalLahir: "2008-05-12",
-                    alamat: "Jl. KH. Ahmad Dahlan No.12, Malang",
-                    noHp: "081234567890",
-                    foto: ""
-                },
-                {
-                    id: Date.now()+2,
-                    nis: "2024-002",
-                    nama: "Muhammad Farel Al-Farizi",
-                    tempatLahir: "Surabaya",
-                    tanggalLahir: "2007-11-22",
-                    alamat: "Jl. Ikan Gurami Gg.2 Surabaya",
-                    noHp: "085678912345",
-                    foto: ""
+        function updateStatus(message, isError = false) {
+            const statusDiv = document.getElementById('syncStatus');
+            statusDiv.innerHTML = message;
+            statusDiv.style.background = isError ? 'rgba(220,53,69,0.8)' : 'rgba(40,167,69,0.8)';
+            setTimeout(() => {
+                statusDiv.style.background = 'rgba(212, 175, 55, 0.2)';
+                statusDiv.innerHTML = '💾 Data tersimpan secara lokal | Cetak & Arsipkan';
+            }, 3000);
+        }
+
+        function previewPhoto(input) {
+            const preview = document.getElementById('photoPreview');
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (file.size > 2 * 1024 * 1024) {
+                    showToast('Ukuran foto maksimal 2MB!', 'error');
+                    input.value = '';
+                    preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
+                    return;
                 }
-            ];
-            saveToLocal();
-        }
-        renderTable();
-    }
-
-    function saveToLocal() {
-        localStorage.setItem('buku_induk_ma', JSON.stringify(students));
-        updateTotalCount();
-    }
-
-    function updateTotalCount() {
-        totalCountSpan.innerText = students.length;
-    }
-
-    // render tabel siswa
-    function renderTable() {
-        if(!students.length) {
-            tableBody.innerHTML = `<tr><td colspan="9" style="text-align:center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>`;
-            updateTotalCount();
-            return;
-        }
-        // urutkan berdasarkan NIS
-        const sorted = [...students].sort((a,b) => a.nis.localeCompare(b.nis));
-        let html = '';
-        sorted.forEach((siswa, idx) => {
-            const fotoHtml = siswa.foto && siswa.foto.trim() !== "" ? 
-                `<img src="${siswa.foto}" class="photo-thumb" alt="foto" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23bfaa73\'%3E%3Cpath d=\'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z\'/%3E%3C/svg%3E'">` : 
-                `<i class="fas fa-user-circle no-photo-icon" style="font-size:2rem;"></i>`;
-            html += `<tr>
-                        <td>${idx+1}</td>
-                        <td>${escapeHtml(siswa.nis)}</td>
-                        <td style="text-align:left;">${escapeHtml(siswa.nama)}</td>
-                        <td>${escapeHtml(siswa.tempatLahir)}</td>
-                        <td>${formatDate(siswa.tanggalLahir)}</td>
-                        <td style="text-align:left; max-width:180px;">${escapeHtml(siswa.alamat)}</td>
-                        <td>${escapeHtml(siswa.noHp)}</td>
-                        <td>${fotoHtml}</td>
-                        <td class="action-icons no-print">
-                            <i class="fas fa-edit edit-icon" data-id="${siswa.id}" title="Edit"></i>
-                            <i class="fas fa-trash-alt delete-icon" data-id="${siswa.id}" title="Hapus"></i>
-                        </td>
-                    </tr>`;
-        });
-        tableBody.innerHTML = html;
-        // attach event listener ke tombol edit/delete
-        document.querySelectorAll('.edit-icon').forEach(icon => {
-            icon.addEventListener('click', (e) => {
-                const id = parseInt(icon.getAttribute('data-id'));
-                editStudentById(id);
-            });
-        });
-        document.querySelectorAll('.delete-icon').forEach(icon => {
-            icon.addEventListener('click', (e) => {
-                const id = parseInt(icon.getAttribute('data-id'));
-                if(confirm("Yakin hapus data siswa ini?")) {
-                    deleteStudentById(id);
+                if (!file.type.match('image.*')) {
+                    showToast('Hanya file gambar yang diperbolehkan!', 'error');
+                    input.value = '';
+                    preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
+                    return;
                 }
-            });
-        });
-        updateTotalCount();
-    }
-
-    function formatDate(dateStr) {
-        if(!dateStr) return '-';
-        const parts = dateStr.split('-');
-        if(parts.length===3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
-        return dateStr;
-    }
-
-    function escapeHtml(str) {
-        if(!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if(m === '&') return '&amp;';
-            if(m === '<') return '&lt;';
-            if(m === '>') return '&gt;';
-            return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
-        });
-    }
-
-    // CRUD
-    function addStudent(student) {
-        // cek duplikat NIS (kecuali jika edit)
-        const exists = students.some(s => s.nis === student.nis);
-        if(exists) {
-            alert("NIS sudah terdaftar! Gunakan NIS yang berbeda.");
-            return false;
-        }
-        student.id = Date.now();
-        students.push(student);
-        saveToLocal();
-        renderTable();
-        resetForm();
-        return true;
-    }
-
-    function updateStudent(updated) {
-        const index = students.findIndex(s => s.id === editId);
-        if(index !== -1) {
-            // cek duplikat NIS kecuali untuk dirinya sendiri
-            const duplicate = students.some(s => s.nis === updated.nis && s.id !== editId);
-            if(duplicate) {
-                alert("NIS sudah digunakan oleh siswa lain. Tidak dapat mengupdate.");
-                return false;
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    preview.innerHTML = `<img src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                }
+                reader.readAsDataURL(file);
             }
-            students[index] = { ...students[index], ...updated, id: editId };
-            saveToLocal();
-            renderTable();
-            resetForm();
-            editMode = false;
-            editId = null;
-            saveBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Siswa';
-            cancelEditBtn.style.opacity = '0.5';
-            return true;
         }
-        return false;
-    }
 
-    function deleteStudentById(id) {
-        students = students.filter(s => s.id !== id);
-        saveToLocal();
-        renderTable();
-        if(editMode && editId === id) resetForm();
-    }
-
-    function deleteAllStudents() {
-        if(students.length === 0) return;
-        if(confirm("⚠️ PERINGATAN: Semua data siswa akan dihapus permanen. Lanjutkan?")) {
-            students = [];
-            saveToLocal();
-            renderTable();
-            resetForm();
+        function hapusFoto() {
+            document.getElementById('foto').value = '';
+            document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
+            showToast('Foto dihapus', 'info');
         }
-    }
 
-    function editStudentById(id) {
-        const student = students.find(s => s.id === id);
-        if(!student) return;
-        editMode = true;
-        editId = id;
-        nisInput.value = student.nis;
-        namaInput.value = student.nama;
-        tempatLahirInput.value = student.tempatLahir;
-        tanggalLahirInput.value = student.tanggalLahir;
-        alamatInput.value = student.alamat;
-        noHpInput.value = student.noHp;
-        currentFotoBase64 = student.foto || "";
-        if(currentFotoBase64 && currentFotoBase64.startsWith('data:image')) {
-            photoPreview.src = currentFotoBase64;
-        } else {
-            photoPreview.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='%23c9b16b'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
+        async function uploadPhotoToDrive(file, nis) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    const base64 = e.target.result.split(',')[1];
+                    try {
+                        const response = await fetch(`${SCRIPT_URL}?action=uploadPhoto`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                fileName: `${nis}_${Date.now()}.jpg`,
+                                fileData: base64,
+                                folderId: DRIVE_FOLDER_ID
+                            }),
+                            headers: {'Content-Type': 'application/json'}
+                        });
+                        const result = await response.json();
+                        if (result.success) resolve(result.fileUrl);
+                        else reject(new Error(result.error));
+                    } catch (error) { reject(error); }
+                };
+                reader.readAsDataURL(file);
+            });
         }
-        saveBtn.innerHTML = '<i class="fas fa-pen"></i> Update Siswa';
-        cancelEditBtn.style.opacity = '1';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
 
-    function resetForm() {
-        nisInput.value = '';
-        namaInput.value = '';
-        tempatLahirInput.value = '';
-        tanggalLahirInput.value = '';
-        alamatInput.value = '';
-        noHpInput.value = '';
-        currentFotoBase64 = "";
-        photoPreview.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='%23c9b16b'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
-        editMode = false;
-        editId = null;
-        saveBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Siswa';
-        cancelEditBtn.style.opacity = '0.5';
-        fotoUpload.value = '';
-    }
+        async function saveToSheets(student) {
+            const response = await fetch(`${SCRIPT_URL}?action=save`, {
+                method: 'POST',
+                body: JSON.stringify({ ...student, spreadsheetId: SPREADSHEET_ID }),
+                headers: {'Content-Type': 'application/json'}
+            });
+            return await response.json();
+        }
 
-    // handle photo upload
-    uploadPhotoBtn.addEventListener('click', () => fotoUpload.click());
-    fotoUpload.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if(file && file.type.startsWith('image/')) {
-            if(file.size > 2 * 1024 * 1024) {
-                alert("Ukuran foto maksimal 2MB.");
+        async function loadFromSheets() {
+            showLoading();
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=getAll&spreadsheetId=${SPREADSHEET_ID}`);
+                const result = await response.json();
+                if (result.success && result.data) {
+                    students = result.data;
+                    renderTable();
+                    updateTotalSiswa();
+                    updateStatus('✅ Data berhasil dimuat dari Google Sheets');
+                    showToast(`Berhasil memuat ${students.length} data siswa`, 'success');
+                } else throw new Error('Gagal memuat data');
+            } catch (error) {
+                console.error(error);
+                updateStatus('❌ Gagal koneksi ke Google Sheets, menggunakan data lokal', true);
+                const localData = localStorage.getItem('bukuIndukSiswa');
+                if (localData) {
+                    students = JSON.parse(localData);
+                    renderTable();
+                    updateTotalSiswa();
+                }
+            }
+            hideLoading();
+        }
+
+        async function deleteFromSheets(nis) {
+            const response = await fetch(`${SCRIPT_URL}?action=delete&nis=${nis}&spreadsheetId=${SPREADSHEET_ID}`, { method: 'DELETE' });
+            return await response.json();
+        }
+
+        async function updateInSheets(student) {
+            const response = await fetch(`${SCRIPT_URL}?action=update`, {
+                method: 'PUT',
+                body: JSON.stringify({ ...student, spreadsheetId: SPREADSHEET_ID }),
+                headers: {'Content-Type': 'application/json'}
+            });
+            return await response.json();
+        }
+
+        async function simpanData() {
+            const nis = document.getElementById('nis').value.trim();
+            const nama = document.getElementById('nama').value.trim();
+            const tempat_lahir = document.getElementById('tempat_lahir').value;
+            const tanggal_lahir = document.getElementById('tanggal_lahir').value;
+            const alamat = document.getElementById('alamat').value;
+            const no_hp = document.getElementById('no_hp').value;
+            const fotoFile = document.getElementById('foto').files[0];
+
+            if (!nis || !nama) {
+                showToast('NIS dan Nama Lengkap wajib diisi!', 'error');
                 return;
             }
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                currentFotoBase64 = ev.target.result;
-                photoPreview.src = currentFotoBase64;
-            };
-            reader.readAsDataURL(file);
-        } else if(file) alert("Format tidak didukung. Pilih file gambar.");
-    });
-    removePhotoBtn.addEventListener('click', () => {
-        currentFotoBase64 = "";
-        photoPreview.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='%23c9b16b'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
-        fotoUpload.value = '';
-    });
 
-    // submit form
-    document.getElementById('studentForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const nis = nisInput.value.trim();
-        const nama = namaInput.value.trim();
-        const tempatLahir = tempatLahirInput.value.trim();
-        const tanggalLahir = tanggalLahirInput.value;
-        const alamat = alamatInput.value.trim();
-        const noHp = noHpInput.value.trim();
+            showLoading();
+            try {
+                let fotoUrl = '';
+                if (fotoFile) {
+                    updateStatus('📤 Mengupload foto ke Google Drive...');
+                    fotoUrl = await uploadPhotoToDrive(fotoFile, nis);
+                }
 
-        if(!nis || !nama || !tempatLahir || !tanggalLahir || !alamat || !noHp) {
-            alert("Harap isi semua field yang bertanda * (NIS, Nama, Tempat Lahir, Tanggal Lahir, Alamat, No HP).");
-            return;
+                const newStudent = { nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, foto: fotoUrl, tanggal_entry: new Date().toISOString() };
+                const existingStudent = students.find(s => s.nis === nis);
+                let result;
+
+                if (existingStudent) {
+                    result = await updateInSheets(newStudent);
+                    if (result.success) {
+                        const index = students.findIndex(s => s.nis === nis);
+                        students[index] = newStudent;
+                        showToast('Data berhasil diupdate!', 'success');
+                    }
+                } else {
+                    result = await saveToSheets(newStudent);
+                    if (result.success) {
+                        students.push(newStudent);
+                        showToast('Data berhasil disimpan!', 'success');
+                    }
+                }
+
+                if (result.success) {
+                    renderTable();
+                    updateTotalSiswa();
+                    resetForm();
+                    localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+                } else throw new Error(result.error);
+            } catch (error) {
+                console.error(error);
+                showToast('Gagal menyimpan data: ' + error.message, 'error');
+            }
+            hideLoading();
         }
-        const studentData = {
-            nis, nama, tempatLahir, tanggalLahir, alamat, noHp,
-            foto: currentFotoBase64 || ""
-        };
-        if(editMode && editId) {
-            updateStudent(studentData);
-        } else {
-            addStudent(studentData);
+
+        async function hapusData(nis) {
+            if (!confirm(`Yakin ingin menghapus data siswa dengan NIS ${nis}?`)) return;
+            showLoading();
+            try {
+                const result = await deleteFromSheets(nis);
+                if (result.success) {
+                    students = students.filter(s => s.nis !== nis);
+                    renderTable();
+                    updateTotalSiswa();
+                    localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+                    showToast('Data berhasil dihapus!', 'success');
+                } else throw new Error(result.error);
+            } catch (error) {
+                showToast('Gagal menghapus data', 'error');
+            }
+            hideLoading();
         }
-    });
 
-    cancelEditBtn.addEventListener('click', () => {
-        resetForm();
-    });
+        function hapusSemua() {
+            if (!confirm('⚠️ PERINGATAN: Ini akan menghapus SEMUA data siswa! Lanjutkan?')) return;
+            if (confirm('Apakah Anda benar-benar yakin? Data tidak dapat dikembalikan!')) {
+                students = [];
+                renderTable();
+                updateTotalSiswa();
+                localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+                showToast('Semua data berhasil dihapus', 'info');
+            }
+        }
 
-    printBtn.addEventListener('click', () => {
-        window.print();
-    });
+        function editData(nis) {
+            const student = students.find(s => s.nis === nis);
+            if (student) {
+                document.getElementById('nis').value = student.nis;
+                document.getElementById('nama').value = student.nama;
+                document.getElementById('tempat_lahir').value = student.tempat_lahir || '';
+                document.getElementById('tanggal_lahir').value = student.tanggal_lahir || '';
+                document.getElementById('alamat').value = student.alamat || '';
+                document.getElementById('no_hp').value = student.no_hp || '';
+                if (student.foto) {
+                    document.getElementById('photoPreview').innerHTML = `<img src="${student.foto}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                }
+                document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+                showToast(`Mengedit data: ${student.nama}`, 'info');
+            }
+        }
 
-    deleteAllBtn.addEventListener('click', () => {
-        deleteAllStudents();
-    });
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            if (!students || students.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align: center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>';
+                return;
+            }
 
-    // inisialisasi
-    loadData();
-</script>
+            tbody.innerHTML = students.map((student, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><strong>${escapeHtml(student.nis)}</strong></td>
+                    <td>${escapeHtml(student.nama)}</td>
+                    <td>${escapeHtml(student.tempat_lahir || '-')}</td>
+                    <td>${student.tanggal_lahir || '-'}</td>
+                    <td style="max-width: 200px;">${escapeHtml(student.alamat || '-')}</td>
+                    <td>${student.no_hp || '-'}</td>
+                    <td>${student.foto ? `<img src="${student.foto}" class="student-photo" onclick="window.open('${student.foto}', '_blank')" title="Klik untuk perbesar">` : '<span style="color:#999;">📷 No photo</span>'}</td>
+                    <td class="no-print">
+                        <div class="action-btns">
+                            <button class="btn btn-secondary btn-icon" onclick="editData('${student.nis}')">✏️ Edit</button>
+                            <button class="btn btn-danger btn-icon" onclick="hapusData('${student.nis}')">🗑️ Hapus</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function updateTotalSiswa() {
+            const totalSpan = document.getElementById('totalSiswa');
+            if (totalSpan) totalSpan.innerHTML = `Total Siswa: ${students.length}`;
+        }
+
+        function resetForm() {
+            document.getElementById('nis').value = '';
+            document.getElementById('nama').value = '';
+            document.getElementById('tempat_lahir').value = '';
+            document.getElementById('tanggal_lahir').value = '';
+            document.getElementById('alamat').value = '';
+            document.getElementById('no_hp').value = '';
+            document.getElementById('foto').value = '';
+            document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
+            showToast('Form dibersihkan', 'info');
+        }
+
+        function printTable() { window.print(); }
+
+        function exportToExcel() {
+            if (students.length === 0) { showToast('Tidak ada data untuk diexport!', 'error'); return; }
+            let csv = "No,NIS,Nama Lengkap,Tempat Lahir,Tanggal Lahir,Alamat,No HP,Link Foto\n";
+            students.forEach((s, i) => {
+                csv += `"${i+1}","${s.nis}","${s.nama}","${s.tempat_lahir || ''}","${s.tanggal_lahir || ''}","${s.alamat || ''}","${s.no_hp || ''}","${s.foto || ''}"\n`;
+            });
+            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.setAttribute('download', `buku_induk_siswa_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            showToast('Export Excel berhasil!', 'success');
+        }
+
+        async function syncFromSheets() { await loadFromSheets(); }
+
+        document.getElementById('scriptUrlDisplay').innerText = SCRIPT_URL;
+        loadFromSheets();
+    </script>
 </body>
 </html>
+
+https://script.google.com/macros/s/AKfycbz1RAF1bMqxnQllhgFSF5_yEleGCLScnh2jg0B5N5jpu9fTpzuxYAN-OzxfE660hMgbRA/exec
