@@ -19,7 +19,6 @@
             border-radius: 24px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
             overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.3);
         }
         .header {
             background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%);
@@ -27,8 +26,8 @@
             text-align: center;
             border-bottom: 4px solid #d4af37;
         }
-        .header h1 { font-size: 2.2em; margin-bottom: 8px; color: #d4af37; }
-        .header p { font-size: 1em; color: #e8e0b0; }
+        .header h1 { font-size: 2.2em; color: #d4af37; }
+        .header p { color: #e8e0b0; margin-top: 8px; }
         .sync-status {
             margin-top: 12px;
             padding: 6px 16px;
@@ -39,16 +38,68 @@
             color: #d4af37;
         }
         .content { padding: 32px; }
-        .info-card {
-            background: linear-gradient(135deg, #e8f0e5 0%, #d4e2cc 100%);
-            padding: 20px;
-            border-radius: 16px;
+        .form-section {
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 20px;
             margin-bottom: 32px;
-            border-left: 4px solid #d4af37;
+            border: 1px solid #e8e0b0;
         }
-        .info-card h3 { color: #1f4d2c; margin-bottom: 12px; }
-        .info-card a { color: #1f4d2c; text-decoration: none; font-weight: bold; }
-        .info-card a:hover { text-decoration: underline; }
+        .form-section h2 {
+            color: #1f4d2c;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #d4af37;
+            display: inline-block;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1f4d2c;
+            font-weight: 600;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e8e0b0;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+        .photo-preview {
+            width: 160px;
+            height: 160px;
+            border: 3px dashed #d4af37;
+            border-radius: 16px;
+            background: #faf9f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-preview span { color: #9b9a7a; font-size: 12px; text-align: center; padding: 10px; }
+        .photo-buttons { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-photo {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .btn-photo.primary { background: #1f4d2c; color: #d4af37; }
+        .btn-photo.danger { background: #dc3545; color: white; }
+        .btn-group { display: flex; gap: 15px; margin-top: 28px; flex-wrap: wrap; }
         .btn {
             padding: 12px 28px;
             border: none;
@@ -57,16 +108,14 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            display: inline-block;
-            text-decoration: none;
         }
-        .btn-primary { background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%); color: #d4af37; }
+        .btn-primary { background: linear-gradient(135deg, #1f4d2c, #0e3a1e); color: #d4af37; }
         .btn-primary:hover { transform: translateY(-2px); }
         .btn-secondary { background: #f0ede0; color: #1f4d2c; border: 1px solid #d4af37; }
+        .btn-danger { background: #dc3545; color: white; }
         .btn-info { background: #17a2b8; color: white; }
-        .btn-group { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
         .table-section {
-            background: #ffffff;
+            background: white;
             border-radius: 20px;
             padding: 20px;
             border: 1px solid #e8e0b0;
@@ -79,7 +128,7 @@
             margin-bottom: 20px;
         }
         .total-badge {
-            background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%);
+            background: linear-gradient(135deg, #1f4d2c, #0e3a1e);
             padding: 6px 14px;
             border-radius: 30px;
             color: #d4af37;
@@ -87,8 +136,11 @@
         .table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee8d0; }
-        th { background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%); color: #d4af37; }
+        th { background: linear-gradient(135deg, #1f4d2c, #0e3a1e); color: #d4af37; }
         tr:hover { background: #fefbe6; }
+        .student-photo { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #d4af37; }
+        .action-btns { display: flex; gap: 8px; }
+        .btn-icon { padding: 6px 12px; font-size: 11px; border-radius: 20px; }
         .loading {
             position: fixed;
             top: 0; left: 0;
@@ -101,18 +153,16 @@
             display: none;
         }
         .spinner {
-            border: 4px solid #e8e0b0;
-            border-top: 4px solid #1f4d2c;
+            width: 50px; height: 50px;
+            border: 5px solid #e8e0b0;
+            border-top-color: #d4af37;
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 30px; right: 30px;
             padding: 14px 24px;
             border-radius: 12px;
             color: white;
@@ -122,77 +172,111 @@
         }
         .toast.success { background: #28a745; }
         .toast.error { background: #dc3545; }
+        .toast.info { background: #17a2b8; }
         @keyframes slideUp {
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         @media print {
-            .btn-group, .info-card, .no-print { display: none; }
+            .btn-group, .form-section, .action-btns, .no-print { display: none; }
         }
         @media (max-width: 768px) {
             .content { padding: 20px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .btn-group .btn { width: 100%; }
             th, td { font-size: 11px; padding: 8px; }
         }
     </style>
 </head>
 <body>
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <p style="color:white; margin-top:15px;">Memuat data...</p>
-    </div>
+    <div class="loading" id="loading"><div class="spinner"></div></div>
 
     <div class="container">
         <div class="header">
             <h1>📖 BUKU INDUK SISWA</h1>
             <p>MA Bidayatul Hidayah | Tahun Ajaran 2024/2025</p>
             <div class="sync-status" id="syncStatus">
-                📊 Data dari Google Sheets | Auto Refresh
+                ✅ Auto Sync ke Google Sheets
             </div>
         </div>
 
         <div class="content">
-            <!-- Info Card -->
-            <div class="info-card">
-                <h3>📌 Cara Input Data Siswa</h3>
-                <p>Untuk menambahkan data siswa baru, silakan isi formulir Google Form berikut:</p>
-                <br>
-                <a href="https://forms.google.com/your-form-link" target="_blank" class="btn btn-primary" style="display: inline-block;">➕ Klik untuk Input Data Siswa</a>
-                <p style="margin-top: 12px; font-size: 12px; color: #666;">* Data akan otomatis masuk ke Google Sheets dan muncul di tabel ini dalam beberapa detik</p>
+            <!-- Form Input Data -->
+            <div class="form-section">
+                <h2>📝 Formulir Pendaftaran / Edit Siswa</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>NOMOR INDUK SISWA (NIS) *</label>
+                        <input type="text" id="nis" placeholder="Contoh: 2024001">
+                    </div>
+                    <div class="form-group">
+                        <label>NAMA LENGKAP *</label>
+                        <input type="text" id="nama" placeholder="Nama lengkap siswa">
+                    </div>
+                    <div class="form-group">
+                        <label>TEMPAT LAHIR</label>
+                        <input type="text" id="tempat_lahir" placeholder="Kota lahir">
+                    </div>
+                    <div class="form-group">
+                        <label>TANGGAL LAHIR</label>
+                        <input type="date" id="tanggal_lahir">
+                    </div>
+                    <div class="form-group">
+                        <label>ALAMAT RUMAH</label>
+                        <textarea id="alamat" rows="2" placeholder="Alamat lengkap"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>NO HP SISWA</label>
+                        <input type="tel" id="no_hp" placeholder="081234567890">
+                    </div>
+                    <div class="form-group">
+                        <label>Foto Siswa (OPSIONAL)</label>
+                        <div class="photo-preview" id="photoPreview" onclick="document.getElementById('foto').click()">
+                            <span>📸 Klik untuk upload foto</span>
+                        </div>
+                        <div class="photo-buttons">
+                            <button type="button" class="btn-photo primary" onclick="document.getElementById('foto').click()">📷 Pilih Foto</button>
+                            <button type="button" class="btn-photo danger" onclick="hapusFoto()">🗑️ Hapus</button>
+                        </div>
+                        <input type="file" id="foto" accept="image/*" style="display: none;" onchange="previewPhoto(this)">
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="simpanData()">💾 Simpan Siswa</button>
+                    <button class="btn btn-secondary" onclick="resetForm()">✖️ Batal Edit</button>
+                </div>
             </div>
 
+            <!-- Tabel Data -->
             <div class="table-section">
                 <div class="table-header">
                     <h2>📋 Daftar Siswa</h2>
                     <div class="total-badge" id="totalSiswa">Total Siswa: 0</div>
                 </div>
-                <div class="btn-group no-print">
-                    <button class="btn btn-secondary" onclick="printTable()">🖨️ Cetak Buku Induk</button>
-                    <button class="btn btn-info" onclick="exportToExcel()">📊 Download CSV / Excel</button>
-                    <button class="btn btn-info" onclick="refreshData()">🔄 Refresh Data</button>
+                <div class="btn-group" style="margin-bottom: 20px;">
+                    <button class="btn btn-secondary btn-icon" onclick="printTable()">🖨️ Cetak Buku Induk</button>
+                    <button class="btn btn-info btn-icon" onclick="exportToExcel()">📊 Download CSV</button>
+                    <button class="btn btn-info btn-icon" onclick="refreshData()">🔄 Refresh Data</button>
                 </div>
                 <div class="table-wrapper">
-                    <table id="studentTable">
+                    <table>
                         <thead>
-                            <tr><th>No</th><th>NIS</th><th>Nama Lengkap</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Alamat</th><th>No HP</th><th>Foto</th></tr>
+                            <tr><th>No</th><th>NIS</th><th>Nama Lengkap</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Alamat</th><th>No HP</th><th>Foto</th><th>Aksi</th></tr>
                         </thead>
                         <tbody id="tableBody">
-                            <tr><td colspan="8" style="text-align: center;">📭 Memuat data dari Google Sheets...</td></tr>
+                            <tr><td colspan="9" style="text-align:center;">📭 Memuat data...</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p style="margin-top: 16px; font-size: 12px; color: #999; text-align: center;">
-                    ⚡ Data diambil langsung dari Google Sheets. Update data setiap beberapa menit.
-                </p>
             </div>
         </div>
     </div>
 
     <script>
         // ==================================================
-        // KONFIGURASI - GANTI DENGAN URL PUBLISH GOOGLE SHEETS ANDA
-        // Cara: File → Share → Publish to web → Copy URL
+        // ⚠️ GANTI DENGAN URL DEPLOY APPS SCRIPT ANDA!
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbys-jJvm2UbRWt9z7pCBt8i8uVqlvjBMnU7l_VfBr5BIXPA6umVozWm1kXXTrmlqJOzbg/exec';
         // ==================================================
-        const GOOGLE_SHEETS_URL = 'https://bit.ly/BookIndukSiswa';
         
         let students = [];
 
@@ -208,62 +292,132 @@
             }, 3000);
         }
 
-        function showLoading() { document.getElementById('loading').style.display = 'flex'; }
-        function hideLoading() { document.getElementById('loading').style.display = 'none'; }
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'flex' : 'none';
+        }
 
-        async function loadFromGoogleSheets() {
-            showLoading();
-            try {
-                // Menggunakan Google Sheets API publik
-                const response = await fetch(GOOGLE_SHEETS_URL);
-                const text = await response.text();
-                
-                // Parse JSONP response
-                const jsonStr = text.substring(text.indexOf('(') + 1, text.lastIndexOf(')'));
-                const data = JSON.parse(jsonStr);
-                
-                // Parse data dari Google Sheets
-                const rows = data.table.rows;
-                if (!rows || rows.length === 0) {
-                    students = [];
-                    renderTable();
-                    updateTotal();
-                    hideLoading();
+        function previewPhoto(input) {
+            const preview = document.getElementById('photoPreview');
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (file.size > 2 * 1024 * 1024) {
+                    showToast('Ukuran foto maksimal 2MB!', 'error');
+                    input.value = '';
+                    preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
                     return;
                 }
-                
-                students = rows.map(row => {
-                    const cols = row.c;
-                    return {
-                        nis: cols[0] ? cols[0].v : '',
-                        nama: cols[1] ? cols[1].v : '',
-                        tempat_lahir: cols[2] ? cols[2].v : '',
-                        tanggal_lahir: cols[3] ? cols[3].v : '',
-                        alamat: cols[4] ? cols[4].v : '',
-                        no_hp: cols[5] ? cols[5].v : '',
-                        foto: cols[6] ? cols[6].v : ''
-                    };
-                }).filter(s => s.nis && s.nis !== '' && s.nis !== 'NIS');
-                
-                renderTable();
-                updateTotal();
-                showToast(`Berhasil memuat ${students.length} data siswa`, 'success');
-                document.getElementById('syncStatus').innerHTML = `✅ Data terbaru: ${new Date().toLocaleTimeString()}`;
-            } catch (error) {
-                console.error('Error loading data:', error);
-                showToast('Gagal memuat data dari Google Sheets', 'error');
-                document.getElementById('syncStatus').innerHTML = '⚠️ Gagal memuat data, coba refresh';
+                const reader = new FileReader();
+                reader.onload = (e) => preview.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
+                reader.readAsDataURL(file);
             }
-            hideLoading();
+        }
+
+        function hapusFoto() {
+            document.getElementById('foto').value = '';
+            document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
+        }
+
+        async function loadFromSheets() {
+            showLoading(true);
+            try {
+                const res = await fetch(SCRIPT_URL);
+                const result = await res.json();
+                if (result.success && result.data) {
+                    students = result.data;
+                    renderTable();
+                    updateTotal();
+                    document.getElementById('syncStatus').innerHTML = `✅ Data terbaru: ${new Date().toLocaleTimeString()}`;
+                    showToast(`Memuat ${students.length} data siswa`, 'success');
+                } else throw new Error('Gagal memuat data');
+            } catch (err) {
+                showToast('Gagal memuat data dari Google Sheets', 'error');
+                document.getElementById('syncStatus').innerHTML = '⚠️ Gagal koneksi ke server';
+            }
+            showLoading(false);
+        }
+
+        async function simpanData() {
+            const nis = document.getElementById('nis').value.trim();
+            const nama = document.getElementById('nama').value.trim();
+            const tempat_lahir = document.getElementById('tempat_lahir').value;
+            const tanggal_lahir = document.getElementById('tanggal_lahir').value;
+            const alamat = document.getElementById('alamat').value;
+            const no_hp = document.getElementById('no_hp').value;
+            const fotoFile = document.getElementById('foto').files[0];
+
+            if (!nis || !nama) return showToast('NIS dan Nama wajib diisi!', 'error');
+
+            showLoading(true);
+            try {
+                let fotoUrl = '';
+                if (fotoFile) {
+                    const reader = new FileReader();
+                    fotoUrl = await new Promise((resolve) => {
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.readAsDataURL(fotoFile);
+                    });
+                }
+
+                const newStudent = { nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, foto: fotoUrl };
+                const existing = students.find(s => s.nis === nis);
+                
+                const res = await fetch(`${SCRIPT_URL}?action=save`, {
+                    method: 'POST',
+                    body: JSON.stringify(newStudent),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const result = await res.json();
+                
+                if (result.success) {
+                    showToast(existing ? 'Data berhasil diupdate!' : 'Data berhasil disimpan ke Google Sheets!', 'success');
+                    await loadFromSheets();
+                    resetForm();
+                } else throw new Error(result.error);
+            } catch (err) {
+                showToast('Gagal menyimpan: ' + err.message, 'error');
+            }
+            showLoading(false);
+        }
+
+        async function hapusData(nis) {
+            if (!confirm(`Hapus data NIS ${nis}?`)) return;
+            showLoading(true);
+            try {
+                const res = await fetch(`${SCRIPT_URL}?nis=${nis}`, { method: 'DELETE' });
+                const result = await res.json();
+                if (result.success) {
+                    showToast('Data berhasil dihapus!', 'success');
+                    await loadFromSheets();
+                } else throw new Error(result.error);
+            } catch (err) {
+                showToast('Gagal hapus data', 'error');
+            }
+            showLoading(false);
+        }
+
+        function editData(nis) {
+            const student = students.find(s => s.nis === nis);
+            if (student) {
+                document.getElementById('nis').value = student.nis;
+                document.getElementById('nama').value = student.nama;
+                document.getElementById('tempat_lahir').value = student.tempat_lahir || '';
+                document.getElementById('tanggal_lahir').value = student.tanggal_lahir || '';
+                document.getElementById('alamat').value = student.alamat || '';
+                document.getElementById('no_hp').value = student.no_hp || '';
+                if (student.foto) {
+                    document.getElementById('photoPreview').innerHTML = `<img src="${student.foto}" style="width:100%;height:100%;object-fit:cover;">`;
+                }
+                document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
+                showToast(`Edit data: ${student.nama}`, 'info');
+            }
         }
 
         function renderTable() {
             const tbody = document.getElementById('tableBody');
             if (!students.length) {
-                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center;">📭 Belum ada data siswa. Silakan isi Google Form di atas.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir. </td></tr>';
                 return;
             }
-            
             tbody.innerHTML = students.map((s, i) => `
                 <tr>
                     <td>${i+1}</td>
@@ -271,34 +425,34 @@
                     <td>${escapeHtml(s.nama)}</td>
                     <td>${escapeHtml(s.tempat_lahir || '-')}</td>
                     <td>${s.tanggal_lahir || '-'}</td>
-                    <td style="max-width: 200px;">${escapeHtml(s.alamat || '-')}</td>
+                    <td>${escapeHtml(s.alamat || '-')}</td>
                     <td>${s.no_hp || '-'}</td>
-                    <td>${s.foto ? `<a href="${s.foto}" target="_blank" style="color:#1f4d2c;">📷 Lihat</a>` : '-'}</td>
+                    <td>${s.foto ? `<img src="${s.foto}" class="student-photo" onclick="window.open('${s.foto}','_blank')">` : '-'}</td>
+                    <td class="no-print"><div class="action-btns"><button class="btn btn-secondary btn-icon" onclick="editData('${s.nis}')">✏️ Edit</button><button class="btn btn-danger btn-icon" onclick="hapusData('${s.nis}')">🗑️ Hapus</button></div></td>
                 </tr>
             `).join('');
         }
 
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        function updateTotal() { document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`; }
+        function resetForm() {
+            document.getElementById('nis').value = '';
+            document.getElementById('nama').value = '';
+            document.getElementById('tempat_lahir').value = '';
+            document.getElementById('tanggal_lahir').value = '';
+            document.getElementById('alamat').value = '';
+            document.getElementById('no_hp').value = '';
+            document.getElementById('foto').value = '';
+            document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
         }
-
-        function updateTotal() {
-            document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`;
-        }
-
         function printTable() { window.print(); }
-
+        function refreshData() { loadFromSheets(); }
         function exportToExcel() {
             if (!students.length) return showToast('Tidak ada data', 'error');
-            
             let csv = "No,NIS,Nama Lengkap,Tempat Lahir,Tanggal Lahir,Alamat,No HP,Link Foto\n";
             students.forEach((s, i) => {
                 csv += `"${i+1}","${s.nis}","${s.nama}","${s.tempat_lahir || ''}","${s.tanggal_lahir || ''}","${s.alamat || ''}","${s.no_hp || ''}","${s.foto || ''}"\n`;
             });
-            
             const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
@@ -309,16 +463,7 @@
             showToast('Download CSV berhasil!', 'success');
         }
 
-        function refreshData() {
-            loadFromGoogleSheets();
-        }
-
-        // Auto refresh setiap 30 detik
-        setInterval(() => {
-            loadFromGoogleSheets();
-        }, 30000);
-
-        loadFromGoogleSheets();
+        loadFromSheets();
     </script>
 </body>
 </html>
