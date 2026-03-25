@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Buku Induk Siswa - MA Bidayatul Hidayah</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,8 +26,9 @@
             padding: 28px 32px;
             text-align: center;
             border-bottom: 4px solid #d4af37;
+            position: relative;
         }
-        .header h1 { font-size: 2.2em; margin-bottom: 8px; color: #d4af37; }
+        .header h1 { font-size: 2.2em; margin-bottom: 8px; color: #d4af37; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
         .header p { font-size: 1em; color: #e8e0b0; }
         .sync-status {
             margin-top: 12px;
@@ -45,6 +46,7 @@
             border-radius: 20px;
             margin-bottom: 32px;
             border: 1px solid #e8e0b0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
         .form-section h2 {
             color: #1f4d2c;
@@ -63,6 +65,7 @@
             margin-bottom: 8px;
             color: #1f4d2c;
             font-weight: 600;
+            font-size: 0.9em;
         }
         .form-group input, .form-group textarea {
             width: 100%;
@@ -70,10 +73,12 @@
             border: 2px solid #e8e0b0;
             border-radius: 12px;
             font-size: 14px;
+            transition: all 0.3s;
         }
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
         .photo-upload-area {
             display: flex;
@@ -92,7 +97,9 @@
             justify-content: center;
             overflow: hidden;
             cursor: pointer;
+            transition: all 0.3s;
         }
+        .photo-preview:hover { border-color: #1f4d2c; transform: scale(1.02); }
         .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
         .photo-preview span { color: #9b9a7a; font-size: 12px; text-align: center; padding: 10px; }
         .photo-buttons { display: flex; gap: 10px; }
@@ -101,10 +108,13 @@
             border: none;
             border-radius: 8px;
             font-size: 12px;
+            font-weight: 500;
             cursor: pointer;
+            transition: all 0.2s;
         }
         .btn-photo.primary { background: #1f4d2c; color: #d4af37; }
         .btn-photo.danger { background: #dc3545; color: white; }
+        .btn-photo:hover { transform: translateY(-1px); opacity: 0.9; }
         .btn-group { display: flex; gap: 15px; margin-top: 28px; flex-wrap: wrap; }
         .btn {
             padding: 12px 28px;
@@ -113,11 +123,16 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
         }
-        .btn-primary { background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%); color: #d4af37; }
+        .btn-primary { background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%); color: #d4af37; box-shadow: 0 4px 10px rgba(31,77,44,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(31,77,44,0.4); }
         .btn-secondary { background: #f0ede0; color: #1f4d2c; border: 1px solid #d4af37; }
+        .btn-secondary:hover { background: #e8e0b0; transform: translateY(-2px); }
         .btn-danger { background: #dc3545; color: white; }
+        .btn-danger:hover { background: #c82333; transform: translateY(-2px); }
         .btn-info { background: #17a2b8; color: white; }
+        .btn-info:hover { background: #138496; transform: translateY(-2px); }
         .table-section {
             background: #ffffff;
             border-radius: 20px;
@@ -136,14 +151,16 @@
             padding: 6px 14px;
             border-radius: 30px;
             color: #d4af37;
+            font-size: 0.85em;
+            font-weight: 600;
         }
-        .table-wrapper { overflow-x: auto; }
+        .table-wrapper { overflow-x: auto; border-radius: 16px; }
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee8d0; }
-        th { background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%); color: #d4af37; }
+        th { background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%); color: #d4af37; font-weight: 600; }
         tr:hover { background: #fefbe6; }
         .student-photo { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #d4af37; }
-        .action-btns { display: flex; gap: 8px; }
+        .action-btns { display: flex; gap: 8px; flex-wrap: wrap; }
         .btn-icon { padding: 6px 12px; font-size: 11px; border-radius: 20px; }
         .loading {
             position: fixed;
@@ -182,6 +199,7 @@
             z-index: 10000;
             animation: slideUp 0.3s ease;
             display: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         .toast-notification.success { background: #28a745; }
         .toast-notification.error { background: #dc3545; }
@@ -197,14 +215,18 @@
             padding: 20px;
             border-left: 4px solid #d4af37;
         }
+        .guide-section summary { font-weight: 600; color: #1f4d2c; cursor: pointer; }
+        .guide-section code { background: #e8e0b0; padding: 2px 6px; border-radius: 6px; font-size: 12px; }
         @media print {
             .btn-group, .form-section, .action-btns, .no-print, .sync-status, .guide-section { display: none; }
             body { background: white; padding: 0; }
+            .container { box-shadow: none; }
         }
         @media (max-width: 768px) {
             .content { padding: 20px; }
             .form-grid { grid-template-columns: 1fr; }
             .btn-group .btn { width: 100%; }
+            th, td { font-size: 11px; padding: 8px; }
         }
     </style>
 </head>
@@ -221,20 +243,21 @@
             <h1>📖 BUKU INDUK SISWA</h1>
             <p>MA Bidayatul Hidayah | Tahun Ajaran 2024/2025</p>
             <div class="sync-status" id="syncStatus">
-                💾 Data tersimpan secara lokal
+                💾 Data tersimpan di browser Anda (localStorage)
             </div>
         </div>
 
         <div class="content">
+            <!-- Form Entry Data -->
             <div class="form-section">
                 <h2>📝 Formulir Pendaftaran / Edit Siswa</h2>
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>NOMOR INDUK SISWA (NIS) *</label>
+                        <label>NOMOR INDUK SISWA (NIS) <span style="color:#dc3545;">*</span></label>
                         <input type="text" id="nis" placeholder="Contoh: 2024-001">
                     </div>
                     <div class="form-group">
-                        <label>NAMA LENGKAP *</label>
+                        <label>NAMA LENGKAP <span style="color:#dc3545;">*</span></label>
                         <input type="text" id="nama" placeholder="Nama lengkap">
                     </div>
                     <div class="form-group">
@@ -254,7 +277,7 @@
                         <input type="tel" id="no_hp" placeholder="08xxxxxxxxxx">
                     </div>
                     <div class="form-group">
-                        <label>Foto Siswa (OPSIONAL)</label>
+                        <label>Foto Siswa <span style="font-weight: normal;">(OPSIONAL)</span></label>
                         <div class="photo-upload-area">
                             <div class="photo-preview" id="photoPreview" onclick="document.getElementById('foto').click()">
                                 <span>📸 Klik untuk upload foto</span>
@@ -273,6 +296,7 @@
                 </div>
             </div>
 
+            <!-- Tabel Data Siswa -->
             <div class="table-section">
                 <div class="table-header">
                     <h2>📋 Daftar Siswa</h2>
@@ -283,9 +307,10 @@
                     <button class="btn btn-danger btn-icon" onclick="hapusSemua()">🗑️ Hapus Semua</button>
                     <button class="btn btn-info btn-icon" onclick="exportToExcel()">📊 Export Excel</button>
                     <button class="btn btn-info btn-icon" onclick="exportToJSON()">📄 Backup JSON</button>
+                    <button class="btn btn-info btn-icon" onclick="importFromJSON()">📂 Import JSON</button>
                 </div>
                 <div class="table-wrapper">
-                    <table>
+                    <table id="studentTable">
                         <thead>
                             <tr><th>No</th><th>NIS</th><th>Nama Lengkap</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Alamat</th><th>No HP</th><th>Foto</th><th>Aksi</th></tr>
                         </thead>
@@ -296,19 +321,24 @@
                 </div>
             </div>
 
+            <!-- Panduan Integrasi Google Sheets -->
             <div class="guide-section">
-                <details>
-                    <summary>📘 Panduan Integrasi Google Sheets / Drive</summary>
+                <details open>
+                    <summary>📘 Cara Backup Data ke Google Sheets / Drive</summary>
                     <p>
-                        <strong>⚠️ Karena kebijakan CORS Google Apps Script, saat ini aplikasi menggunakan penyimpanan LOKAL (di browser Anda).</strong><br><br>
+                        <strong>✅ Aplikasi ini menyimpan data di BROWSER ANDA (localStorage).</strong><br><br>
                         <strong>📌 Untuk menyimpan data ke Google Sheets secara permanen:</strong><br>
-                        1. Setelah mengisi data, klik "Export JSON" untuk backup data<br>
-                        2. Buka Google Sheets: <a href="https://bit.ly/IndukSiswaBook" target="_blank">https://bit.ly/IndukSiswaBook</a><br>
-                        3. Import file JSON yang sudah diexport<br><br>
+                        1. Klik tombol <strong>"📄 Backup JSON"</strong> untuk mendownload file backup<br>
+                        2. Buka Google Sheets Anda: <a href="https://bit.ly/IndukSiswaBook" target="_blank">https://bit.ly/IndukSiswaBook</a><br>
+                        3. Klik <strong>File → Import → Upload</strong><br>
+                        4. Pilih file JSON yang sudah didownload<br>
+                        5. Pilih <strong>"Replace current sheet"</strong> atau <strong>"Append to current sheet"</strong><br><br>
                         <strong>📸 Untuk menyimpan foto ke Google Drive:</strong><br>
-                        Foto akan tersimpan di localStorage browser. Untuk backup permanen, download foto manual.<br><br>
-                        <strong>🔧 Alternatif Solusi CORS:</strong><br>
-                        Jika ingin integrasi real-time, Anda bisa menggunakan layanan seperti <strong>corsproxy.io</strong> atau deploy Apps Script sebagai Web App dengan konfigurasi yang benar.
+                        Foto tersimpan di dalam file JSON (format base64). Saat import ke Google Sheets, link foto akan muncul.<br><br>
+                        <strong>📂 Untuk memulihkan data dari file backup:</strong><br>
+                        Klik tombol <strong>"📂 Import JSON"</strong> dan pilih file backup yang sudah pernah diexport.<br><br>
+                        <strong>🔗 Link Google Sheets Anda:</strong> <code>https://bit.ly/IndukSiswaBook</code><br>
+                        <strong>🔗 Link Google Drive Foto:</strong> <code>https://bit.ly/BukuSiswaIndukMABIDA</code>
                     </p>
                 </details>
             </div>
@@ -343,6 +373,12 @@
                     preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
                     return;
                 }
+                if (!file.type.match('image.*')) {
+                    showToast('Hanya file gambar yang diperbolehkan!', 'error');
+                    input.value = '';
+                    preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
+                    return;
+                }
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     preview.innerHTML = `<img src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
@@ -371,12 +407,10 @@
                 return;
             }
 
-            let fotoUrl = '';
             if (fotoFile) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    fotoUrl = e.target.result;
-                    simpanKeLocalStorage(nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, fotoUrl);
+                    simpanKeLocalStorage(nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, e.target.result);
                 };
                 reader.readAsDataURL(fotoFile);
             } else {
@@ -438,6 +472,8 @@
                 document.getElementById('no_hp').value = student.no_hp || '';
                 if (student.foto) {
                     document.getElementById('photoPreview').innerHTML = `<img src="${student.foto}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                } else {
+                    document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
                 }
                 document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
                 showToast(`Mengedit data: ${student.nama}`, 'info');
@@ -479,7 +515,8 @@
         }
 
         function updateTotalSiswa() {
-            document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`;
+            const totalSpan = document.getElementById('totalSiswa');
+            if (totalSpan) totalSpan.innerHTML = `Total Siswa: ${students.length}`;
         }
 
         function resetForm() {
@@ -491,6 +528,7 @@
             document.getElementById('no_hp').value = '';
             document.getElementById('foto').value = '';
             document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
+            showToast('Form dibersihkan', 'info');
         }
 
         function printTable() { window.print(); }
@@ -528,14 +566,42 @@
             showToast('Backup JSON berhasil! Data siap diimport ke Google Sheets', 'success');
         }
 
-        // Load data dari localStorage
+        function importFromJSON() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const importedData = JSON.parse(event.target.result);
+                        if (Array.isArray(importedData)) {
+                            students = importedData;
+                            localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+                            renderTable();
+                            updateTotalSiswa();
+                            showToast(`Berhasil mengimport ${students.length} data siswa!`, 'success');
+                        } else {
+                            throw new Error('Format file tidak valid');
+                        }
+                    } catch (error) {
+                        showToast('Gagal mengimport file. Pastikan file JSON valid.', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // Load data dari localStorage saat halaman dimuat
         function loadLocalData() {
             const savedData = localStorage.getItem('bukuIndukSiswa');
             if (savedData) {
                 students = JSON.parse(savedData);
                 renderTable();
                 updateTotalSiswa();
-                showToast(`Berhasil memuat ${students.length} data siswa`, 'success');
+                showToast(`Berhasil memuat ${students.length} data siswa dari browser`, 'success');
             }
         }
 
