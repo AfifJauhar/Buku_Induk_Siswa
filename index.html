@@ -113,9 +113,12 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
         }
         .btn-primary { background: linear-gradient(135deg, #1f4d2c 0%, #0e3a1e 100%); color: #d4af37; }
+        .btn-primary:hover { transform: translateY(-2px); }
         .btn-secondary { background: #f0ede0; color: #1f4d2c; border: 1px solid #d4af37; }
+        .btn-secondary:hover { background: #e8e0b0; }
         .btn-danger { background: #dc3545; color: white; }
         .btn-info { background: #17a2b8; color: white; }
         .btn-success { background: #28a745; color: white; }
@@ -173,7 +176,7 @@
             margin: 0 auto 15px;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .toast-notification {
+        .toast {
             position: fixed;
             bottom: 30px;
             right: 30px;
@@ -184,9 +187,9 @@
             animation: slideUp 0.3s ease;
             display: none;
         }
-        .toast-notification.success { background: #28a745; }
-        .toast-notification.error { background: #dc3545; }
-        .toast-notification.info { background: #17a2b8; }
+        .toast.success { background: #28a745; }
+        .toast.error { background: #dc3545; }
+        .toast.info { background: #17a2b8; }
         @keyframes slideUp {
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -222,7 +225,7 @@
             <h1>📖 BUKU INDUK SISWA</h1>
             <p>MA Bidayatul Hidayah | Tahun Ajaran 2024/2025</p>
             <div class="sync-status" id="syncStatus">
-                💾 Terhubung ke Google Sheets & Drive
+                ✅ Auto Sync ke Google Sheets & Drive
             </div>
         </div>
 
@@ -232,15 +235,15 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>NOMOR INDUK SISWA (NIS) *</label>
-                        <input type="text" id="nis" placeholder="Contoh: 2024-001">
+                        <input type="text" id="nis" placeholder="Contoh: 2024001">
                     </div>
                     <div class="form-group">
                         <label>NAMA LENGKAP *</label>
-                        <input type="text" id="nama" placeholder="Nama lengkap">
+                        <input type="text" id="nama" placeholder="Nama lengkap siswa">
                     </div>
                     <div class="form-group">
                         <label>TEMPAT LAHIR</label>
-                        <input type="text" id="tempat_lahir" placeholder="Kota/Kabupaten">
+                        <input type="text" id="tempat_lahir" placeholder="Kota lahir">
                     </div>
                     <div class="form-group">
                         <label>TANGGAL LAHIR</label>
@@ -252,7 +255,7 @@
                     </div>
                     <div class="form-group">
                         <label>NO HP SISWA</label>
-                        <input type="tel" id="no_hp" placeholder="08xxxxxxxxxx">
+                        <input type="tel" id="no_hp" placeholder="081234567890">
                     </div>
                     <div class="form-group">
                         <label>Foto Siswa (OPSIONAL)</label>
@@ -271,7 +274,7 @@
                 <div class="btn-group">
                     <button class="btn btn-primary" onclick="simpanData()">💾 Simpan Siswa</button>
                     <button class="btn btn-secondary" onclick="resetForm()">✖️ Batal Edit</button>
-                    <button class="btn btn-success" onclick="syncFromSheets()">🔄 Sync dari Google Sheets</button>
+                    <button class="btn btn-success" onclick="loadFromSheets()">🔄 Sync Data</button>
                 </div>
             </div>
 
@@ -283,7 +286,7 @@
                 <div class="btn-group" style="margin-bottom: 20px;">
                     <button class="btn btn-secondary btn-icon" onclick="printTable()">🖨️ Cetak Buku Induk</button>
                     <button class="btn btn-danger btn-icon" onclick="hapusSemua()">🗑️ Hapus Semua</button>
-                    <button class="btn btn-info btn-icon" onclick="exportToExcel()">📊 Export Excel</button>
+                    <button class="btn btn-info btn-icon" onclick="exportToExcel()">📊 Download CSV</button>
                 </div>
                 <div class="table-wrapper">
                     <table>
@@ -291,7 +294,7 @@
                             <tr><th>No</th><th>NIS</th><th>Nama Lengkap</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Alamat</th><th>No HP</th><th>Foto</th><th>Aksi</th></tr>
                         </thead>
                         <tbody id="tableBody">
-                            <tr><td colspan="9" style="text-align: center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>
+                            <tr><td colspan="9" style="text-align: center;">📭 Memuat data...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -299,16 +302,13 @@
 
             <div class="guide-section">
                 <details>
-                    <summary>📘 Status Integrasi Google Sheets & Drive</summary>
+                    <summary>📘 Informasi Sistem</summary>
                     <p>
-                        <strong>✅ Status: TERHUBUNG</strong><br><br>
-                        <strong>📌 Google Sheets:</strong> <a href="https://bit.ly/IndukSiswaBook" target="_blank">https://bit.ly/IndukSiswaBook</a><br>
-                        <strong>📸 Google Drive Foto:</strong> <a href="https://bit.ly/BukuSiswaIndukMABIDA" target="_blank">https://bit.ly/BukuSiswaIndukMABIDA</a><br><br>
-                        <strong>💡 Cara Kerja:</strong><br>
-                        • Setiap data disimpan → otomatis tersimpan ke Google Sheets<br>
-                        • Setiap upload foto → otomatis tersimpan ke Google Drive<br>
-                        • Klik "Sync dari Google Sheets" untuk memuat data terbaru<br>
-                        • Data juga tersimpan di browser sebagai cadangan
+                        ✅ <strong>Data otomatis tersimpan ke Google Sheets</strong><br>
+                        ✅ <strong>Foto otomatis tersimpan ke Google Drive</strong><br>
+                        ✅ <strong>Guru dapat download CSV kapan saja via tombol "Download CSV"</strong><br><br>
+                        📌 <strong>Link Google Sheets:</strong> <a href="https://bit.ly/IndukSiswaBook" target="_blank">https://bit.ly/IndukSiswaBook</a><br>
+                        📌 <strong>Link Google Drive Foto:</strong> <a href="https://bit.ly/BukuSiswaIndukMABIDA" target="_blank">https://bit.ly/BukuSiswaIndukMABIDA</a>
                     </p>
                 </details>
             </div>
@@ -316,18 +316,17 @@
     </div>
 
     <script>
-        // ==================== KONFIGURASI ====================
-        // GANTI DENGAN URL HASIL DEPLOY APPS SCRIPT ANDA!
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzBVJDf_A1GAXwjBS_8fygMPVy3e9AdG4OuRRsACAh17GuljAVqEtcl-9cR2jas2ze0Ug/exec';
-        // ====================================================
+        // ==================================================
+        // ⚠️ GANTI DENGAN URL DEPLOY APPS SCRIPT ANDA!
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxi57m_ulPGJ_SEEy5rG6sMDqloD6Hcp5N5jjcy5YfcJ_oVLQGw3Akwkg39GAHrwxRBRA/exec';
+        // ==================================================
         
         let students = [];
-        let isOnline = true;
 
-        function showToast(message, type = 'success') {
+        function showToast(msg, type = 'success') {
             const toast = document.createElement('div');
-            toast.className = `toast-notification ${type}`;
-            toast.innerHTML = message;
+            toast.className = `toast ${type}`;
+            toast.innerHTML = msg;
             document.body.appendChild(toast);
             toast.style.display = 'block';
             setTimeout(() => {
@@ -339,13 +338,13 @@
         function showLoading() { document.getElementById('loading').style.display = 'flex'; }
         function hideLoading() { document.getElementById('loading').style.display = 'none'; }
 
-        function updateStatus(message, isError = false) {
-            const statusDiv = document.getElementById('syncStatus');
-            statusDiv.innerHTML = message;
-            statusDiv.style.background = isError ? 'rgba(220,53,69,0.8)' : 'rgba(40,167,69,0.8)';
+        function updateStatus(msg, isError = false) {
+            const el = document.getElementById('syncStatus');
+            el.innerHTML = msg;
+            el.style.background = isError ? 'rgba(220,53,69,0.8)' : 'rgba(40,167,69,0.8)';
             setTimeout(() => {
-                statusDiv.style.background = 'rgba(212, 175, 55, 0.2)';
-                statusDiv.innerHTML = '💾 Terhubung ke Google Sheets & Drive';
+                el.style.background = 'rgba(212, 175, 55, 0.2)';
+                el.innerHTML = '✅ Auto Sync ke Google Sheets & Drive';
             }, 3000);
         }
 
@@ -360,9 +359,7 @@
                     return;
                 }
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    preview.innerHTML = `<img src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
-                }
+                reader.onload = (e) => { preview.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`; };
                 reader.readAsDataURL(file);
             }
         }
@@ -375,76 +372,67 @@
         async function uploadPhotoToDrive(file, nis) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.onload = async function(e) {
+                reader.onload = async (e) => {
                     const base64 = e.target.result.split(',')[1];
                     try {
-                        const response = await fetch(`${SCRIPT_URL}?action=uploadPhoto`, {
+                        const res = await fetch(`${SCRIPT_URL}?action=uploadPhoto`, {
                             method: 'POST',
-                            body: JSON.stringify({
-                                fileName: `${nis}_${Date.now()}.jpg`,
-                                fileData: base64
-                            }),
-                            headers: {'Content-Type': 'application/json'}
+                            body: JSON.stringify({ fileName: `${nis}_${Date.now()}.jpg`, fileData: base64 }),
+                            headers: { 'Content-Type': 'application/json' }
                         });
-                        const result = await response.json();
+                        const result = await res.json();
                         if (result.success) resolve(result.fileUrl);
-                        else reject(new Error(result.error));
-                    } catch (error) { reject(error); }
+                        else reject(result.error);
+                    } catch (err) { reject(err); }
                 };
                 reader.readAsDataURL(file);
             });
         }
 
         async function saveToSheets(student) {
-            const response = await fetch(`${SCRIPT_URL}?action=save`, {
+            const res = await fetch(`${SCRIPT_URL}?action=save`, {
                 method: 'POST',
                 body: JSON.stringify(student),
-                headers: {'Content-Type': 'application/json'}
+                headers: { 'Content-Type': 'application/json' }
             });
-            return await response.json();
+            return await res.json();
         }
 
-        async function updateInSheets(student) {
-            const response = await fetch(`${SCRIPT_URL}`, {
+        async function updateToSheets(student) {
+            const res = await fetch(`${SCRIPT_URL}`, {
                 method: 'PUT',
                 body: JSON.stringify(student),
-                headers: {'Content-Type': 'application/json'}
+                headers: { 'Content-Type': 'application/json' }
             });
-            return await response.json();
+            return await res.json();
         }
 
         async function deleteFromSheets(nis) {
-            const response = await fetch(`${SCRIPT_URL}?nis=${nis}`, { method: 'DELETE' });
-            return await response.json();
+            const res = await fetch(`${SCRIPT_URL}?nis=${nis}`, { method: 'DELETE' });
+            return await res.json();
         }
 
         async function loadFromSheets() {
             showLoading();
             try {
-                const response = await fetch(`${SCRIPT_URL}`);
-                const result = await response.json();
+                const res = await fetch(SCRIPT_URL);
+                const result = await res.json();
                 if (result.success && result.data) {
                     students = result.data;
                     renderTable();
-                    updateTotalSiswa();
+                    updateTotal();
                     localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
                     updateStatus('✅ Data berhasil dimuat dari Google Sheets');
-                    showToast(`Berhasil memuat ${students.length} data siswa`, 'success');
-                    isOnline = true;
-                } else {
-                    throw new Error(result.error || 'Gagal memuat data');
-                }
-            } catch (error) {
-                console.error(error);
-                updateStatus('❌ Gagal koneksi ke server, menggunakan data lokal', true);
-                showToast('Gagal terhubung ke server, menggunakan data lokal', 'error');
-                const localData = localStorage.getItem('bukuIndukSiswa');
-                if (localData) {
-                    students = JSON.parse(localData);
+                    showToast(`Memuat ${students.length} data siswa`, 'success');
+                } else throw new Error('Gagal memuat data');
+            } catch (err) {
+                updateStatus('❌ Gagal koneksi, menggunakan data lokal', true);
+                const local = localStorage.getItem('bukuIndukSiswa');
+                if (local) {
+                    students = JSON.parse(local);
                     renderTable();
-                    updateTotalSiswa();
+                    updateTotal();
                 }
-                isOnline = false;
             }
             hideLoading();
         }
@@ -458,28 +446,25 @@
             const no_hp = document.getElementById('no_hp').value;
             const fotoFile = document.getElementById('foto').files[0];
 
-            if (!nis || !nama) {
-                showToast('NIS dan Nama Lengkap wajib diisi!', 'error');
-                return;
-            }
+            if (!nis || !nama) return showToast('NIS dan Nama wajib diisi!', 'error');
 
             showLoading();
             try {
                 let fotoUrl = '';
                 if (fotoFile) {
-                    updateStatus('📤 Mengupload foto ke Google Drive...');
+                    updateStatus('📤 Upload foto ke Google Drive...');
                     fotoUrl = await uploadPhotoToDrive(fotoFile, nis);
                 }
 
                 const newStudent = { nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, foto: fotoUrl };
-                const existingStudent = students.find(s => s.nis === nis);
+                const existing = students.find(s => s.nis === nis);
                 let result;
 
-                if (existingStudent) {
-                    result = await updateInSheets(newStudent);
+                if (existing) {
+                    result = await updateToSheets(newStudent);
                     if (result.success) {
-                        const index = students.findIndex(s => s.nis === nis);
-                        students[index] = newStudent;
+                        const idx = students.findIndex(s => s.nis === nis);
+                        students[idx] = newStudent;
                         showToast('Data berhasil diupdate!', 'success');
                     }
                 } else {
@@ -490,70 +475,45 @@
                     }
                 }
 
-                if (result && result.success) {
+                if (result.success) {
                     renderTable();
-                    updateTotalSiswa();
+                    updateTotal();
                     resetForm();
                     localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
                     updateStatus('✅ Data tersimpan di Google Sheets & Drive');
-                } else if (result && !result.success) {
-                    throw new Error(result.error);
-                }
-            } catch (error) {
-                console.error(error);
-                showToast('Gagal menyimpan data: ' + (error.message || 'Periksa koneksi'), 'error');
-                updateStatus('❌ Gagal menyimpan ke server, data disimpan lokal', true);
-                // Fallback ke localStorage
-                const newStudent = { nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, foto: '' };
-                const existingStudent = students.find(s => s.nis === nis);
-                if (existingStudent) {
-                    const index = students.findIndex(s => s.nis === nis);
-                    students[index] = newStudent;
-                } else {
-                    students.push(newStudent);
-                }
-                renderTable();
-                updateTotalSiswa();
-                resetForm();
-                localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+                } else throw new Error(result.error);
+            } catch (err) {
+                showToast('Gagal menyimpan: ' + err.message, 'error');
+                updateStatus('❌ Gagal simpan ke server', true);
             }
             hideLoading();
         }
 
         async function hapusData(nis) {
-            if (!confirm(`Yakin ingin menghapus data siswa dengan NIS ${nis}?`)) return;
+            if (!confirm(`Hapus data NIS ${nis}?`)) return;
             showLoading();
             try {
                 const result = await deleteFromSheets(nis);
                 if (result.success) {
                     students = students.filter(s => s.nis !== nis);
                     renderTable();
-                    updateTotalSiswa();
+                    updateTotal();
                     localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
                     showToast('Data berhasil dihapus!', 'success');
-                } else {
-                    throw new Error(result.error);
-                }
-            } catch (error) {
-                showToast('Gagal menghapus data dari server', 'error');
-                // Fallback hapus lokal
-                students = students.filter(s => s.nis !== nis);
-                renderTable();
-                updateTotalSiswa();
-                localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+                } else throw new Error(result.error);
+            } catch (err) {
+                showToast('Gagal hapus data', 'error');
             }
             hideLoading();
         }
 
         function hapusSemua() {
-            if (!confirm('⚠️ PERINGATAN: Ini akan menghapus SEMUA data siswa! Lanjutkan?')) return;
-            if (confirm('Apakah Anda benar-benar yakin? Data tidak dapat dikembalikan!')) {
-                students = [];
-                renderTable();
-                updateTotalSiswa();
-                localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
-                showToast('Semua data berhasil dihapus dari browser', 'info');
-            }
+            if (!confirm('⚠️ Hapus SEMUA data? Data tidak dapat dikembalikan!')) return;
+            students = [];
+            renderTable();
+            updateTotal();
+            localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+            showToast('Semua data dihapus dari browser', 'info');
         }
 
         function editData(nis) {
@@ -566,51 +526,36 @@
                 document.getElementById('alamat').value = student.alamat || '';
                 document.getElementById('no_hp').value = student.no_hp || '';
                 if (student.foto) {
-                    document.getElementById('photoPreview').innerHTML = `<img src="${student.foto}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                    document.getElementById('photoPreview').innerHTML = `<img src="${student.foto}" style="width:100%;height:100%;object-fit:cover;">`;
                 }
                 document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
-                showToast(`Mengedit data: ${student.nama}`, 'info');
+                showToast(`Edit: ${student.nama}`, 'info');
             }
         }
 
         function renderTable() {
             const tbody = document.getElementById('tableBody');
-            if (!students || students.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" style="text-align: center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>';
+            if (!students.length) {
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">📭 Belum ada data siswa</td></tr>';
                 return;
             }
-
-            tbody.innerHTML = students.map((student, index) => `
+            tbody.innerHTML = students.map((s, i) => `
                 <tr>
-                    <td>${index + 1}</td>
-                    <td><strong>${escapeHtml(student.nis)}</strong></td>
-                    <td>${escapeHtml(student.nama)}</td>
-                    <td>${escapeHtml(student.tempat_lahir || '-')}</td>
-                    <td>${student.tanggal_lahir || '-'}</td>
-                    <td style="max-width: 200px;">${escapeHtml(student.alamat || '-')}</td>
-                    <td>${student.no_hp || '-'}</td>
-                    <td>${student.foto ? `<img src="${student.foto}" class="student-photo" onclick="window.open('${student.foto}', '_blank')" title="Klik untuk perbesar">` : '<span style="color:#999;">📷 No photo</span>'}</td>
-                    <td class="no-print">
-                        <div class="action-btns">
-                            <button class="btn btn-secondary btn-icon" onclick="editData('${student.nis}')">✏️ Edit</button>
-                            <button class="btn btn-danger btn-icon" onclick="hapusData('${student.nis}')">🗑️ Hapus</button>
-                        </div>
-                    </td>
+                    <td>${i+1}</td>
+                    <td><strong>${escapeHtml(s.nis)}</strong></td>
+                    <td>${escapeHtml(s.nama)}</td>
+                    <td>${escapeHtml(s.tempat_lahir || '-')}</td>
+                    <td>${s.tanggal_lahir || '-'}</td>
+                    <td>${escapeHtml(s.alamat || '-')}</td>
+                    <td>${s.no_hp || '-'}</td>
+                    <td>${s.foto ? `<img src="${s.foto}" class="student-photo" onclick="window.open('${s.foto}','_blank')">` : '📷 No photo'}</td>
+                    <td class="no-print"><div class="action-btns"><button class="btn btn-secondary btn-icon" onclick="editData('${s.nis}')">✏️ Edit</button><button class="btn btn-danger btn-icon" onclick="hapusData('${s.nis}')">🗑️ Hapus</button></div></td>
                 </tr>
             `).join('');
         }
 
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function updateTotalSiswa() {
-            document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`;
-        }
-
+        function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        function updateTotal() { document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`; }
         function resetForm() {
             document.getElementById('nis').value = '';
             document.getElementById('nama').value = '';
@@ -621,29 +566,21 @@
             document.getElementById('foto').value = '';
             document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
         }
-
         function printTable() { window.print(); }
-
         function exportToExcel() {
-            if (students.length === 0) { showToast('Tidak ada data untuk diexport!', 'error'); return; }
+            if (!students.length) return showToast('Tidak ada data', 'error');
             let csv = "No,NIS,Nama Lengkap,Tempat Lahir,Tanggal Lahir,Alamat,No HP,Link Foto\n";
             students.forEach((s, i) => {
                 csv += `"${i+1}","${s.nis}","${s.nama}","${s.tempat_lahir || ''}","${s.tanggal_lahir || ''}","${s.alamat || ''}","${s.no_hp || ''}","${s.foto || ''}"\n`;
             });
-            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
             link.href = url;
-            link.setAttribute('download', `buku_induk_siswa_${new Date().toISOString().split('T')[0]}.csv`);
-            document.body.appendChild(link);
+            link.download = `buku_induk_siswa_${new Date().toISOString().split('T')[0]}.csv`;
             link.click();
-            document.body.removeChild(link);
             URL.revokeObjectURL(url);
-            showToast('Export Excel berhasil!', 'success');
-        }
-
-        async function syncFromSheets() {
-            await loadFromSheets();
+            showToast('Download CSV berhasil!', 'success');
         }
 
         loadFromSheets();
