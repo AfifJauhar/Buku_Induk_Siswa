@@ -44,7 +44,6 @@
             border-radius: 20px;
             margin-bottom: 32px;
             border: 1px solid #e8e0b0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         .form-section h2 {
             color: #1f4d2c;
@@ -70,12 +69,10 @@
             border: 2px solid #e8e0b0;
             border-radius: 12px;
             font-size: 14px;
-            transition: all 0.3s;
         }
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: #d4af37;
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
         .photo-preview {
             width: 160px;
@@ -89,9 +86,7 @@
             overflow: hidden;
             cursor: pointer;
             margin-top: 10px;
-            transition: all 0.3s;
         }
-        .photo-preview:hover { border-color: #1f4d2c; transform: scale(1.02); }
         .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
         .photo-preview span { color: #9b9a7a; font-size: 12px; text-align: center; padding: 10px; }
         .photo-buttons { display: flex; gap: 10px; margin-top: 10px; }
@@ -101,11 +96,9 @@
             border-radius: 8px;
             font-size: 12px;
             cursor: pointer;
-            transition: all 0.2s;
         }
         .btn-photo.primary { background: #1f4d2c; color: #d4af37; }
         .btn-photo.danger { background: #dc3545; color: white; }
-        .btn-photo:hover { transform: translateY(-1px); opacity: 0.9; }
         .btn-group { display: flex; gap: 15px; margin-top: 28px; flex-wrap: wrap; }
         .btn {
             padding: 12px 28px;
@@ -116,16 +109,11 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .btn-primary { background: linear-gradient(135deg, #1f4d2c, #0e3a1e); color: #d4af37; box-shadow: 0 4px 10px rgba(31,77,44,0.3); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(31,77,44,0.4); }
+        .btn-primary { background: linear-gradient(135deg, #1f4d2c, #0e3a1e); color: #d4af37; }
+        .btn-primary:hover { transform: translateY(-2px); }
         .btn-secondary { background: #f0ede0; color: #1f4d2c; border: 1px solid #d4af37; }
-        .btn-secondary:hover { background: #e8e0b0; transform: translateY(-2px); }
         .btn-danger { background: #dc3545; color: white; }
-        .btn-danger:hover { background: #c82333; transform: translateY(-2px); }
         .btn-info { background: #17a2b8; color: white; }
-        .btn-info:hover { background: #138496; transform: translateY(-2px); }
-        .btn-success { background: #28a745; color: white; }
-        .btn-success:hover { background: #218838; transform: translateY(-2px); }
         .table-section {
             background: white;
             border-radius: 20px;
@@ -144,16 +132,34 @@
             padding: 6px 14px;
             border-radius: 30px;
             color: #d4af37;
-            font-weight: 600;
         }
-        .table-wrapper { overflow-x: auto; border-radius: 12px; }
+        .table-wrapper { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 13px; }
         th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee8d0; }
-        th { background: linear-gradient(135deg, #1f4d2c, #0e3a1e); color: #d4af37; font-weight: 600; }
+        th { background: linear-gradient(135deg, #1f4d2c, #0e3a1e); color: #d4af37; }
         tr:hover { background: #fefbe6; }
         .student-photo { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #d4af37; }
-        .action-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .action-btns { display: flex; gap: 8px; }
         .btn-icon { padding: 6px 12px; font-size: 11px; border-radius: 20px; }
+        .loading {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            display: none;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid #e8e0b0;
+            border-top-color: #d4af37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         .toast {
             position: fixed;
             bottom: 30px; right: 30px;
@@ -163,7 +169,6 @@
             z-index: 10000;
             animation: slideUp 0.3s ease;
             display: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         .toast.success { background: #28a745; }
         .toast.error { background: #dc3545; }
@@ -172,49 +177,29 @@
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        .info-card {
-            background: #e8f0e5;
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            border-left: 5px solid #d4af37;
-        }
-        .info-card h4 { color: #1f4d2c; margin-bottom: 12px; }
-        .info-card a { color: #1f4d2c; font-weight: bold; }
         @media print {
-            .btn-group, .form-section, .action-btns, .no-print, .info-card { display: none; }
+            .btn-group, .form-section, .action-btns, .no-print { display: none; }
         }
         @media (max-width: 768px) {
             .content { padding: 20px; }
             .form-grid { grid-template-columns: 1fr; }
-            .btn-group .btn { width: 100%; text-align: center; }
-            th, td { font-size: 11px; padding: 8px; }
+            .btn-group .btn { width: 100%; }
         }
     </style>
 </head>
 <body>
+    <div class="loading" id="loading"><div class="spinner"></div></div>
+
     <div class="container">
         <div class="header">
             <h1>📖 BUKU INDUK SISWA</h1>
             <p>MA Bidayatul Hidayah | Tahun Ajaran 2024/2025</p>
             <div class="sync-status" id="syncStatus">
-                💾 Data tersimpan di browser Anda
+                ✅ Auto Sync ke Google Sheets
             </div>
         </div>
 
         <div class="content">
-            <!-- Info Card -->
-            <div class="info-card">
-                <h4>📌 Cara Backup Data ke Google Sheets</h4>
-                <p>1. Klik tombol <strong>"📤 Backup ke Google Sheets"</strong> → download file CSV<br>
-                2. Buka Google Sheets: <a href="https://bit.ly/IndukSiswaBook" target="_blank">https://bit.ly/IndukSiswaBook</a><br>
-                3. Klik <strong>File → Import → Upload</strong> → pilih file CSV<br>
-                4. Pilih <strong>"Replace current sheet"</strong> atau <strong>"Append to current sheet"</strong><br>
-                <br>
-                📸 <strong>Foto:</strong> Foto tersimpan dalam file CSV (format base64). Saat import ke Google Sheets, link foto akan muncul.</p>
-            </div>
-
-            <!-- Form Input Data -->
             <div class="form-section">
                 <h2>📝 Formulir Pendaftaran / Edit Siswa</h2>
                 <div class="form-grid">
@@ -257,10 +242,10 @@
                 <div class="btn-group">
                     <button class="btn btn-primary" onclick="simpanData()">💾 Simpan Siswa</button>
                     <button class="btn btn-secondary" onclick="resetForm()">✖️ Batal Edit</button>
+                    <button class="btn btn-info" onclick="loadData()">🔄 Refresh Data</button>
                 </div>
             </div>
 
-            <!-- Tabel Data -->
             <div class="table-section">
                 <div class="table-header">
                     <h2>📋 Daftar Siswa</h2>
@@ -268,9 +253,7 @@
                 </div>
                 <div class="btn-group" style="margin-bottom: 20px;">
                     <button class="btn btn-secondary btn-icon" onclick="printTable()">🖨️ Cetak Buku Induk</button>
-                    <button class="btn btn-danger btn-icon" onclick="hapusSemua()">🗑️ Hapus Semua</button>
                     <button class="btn btn-info btn-icon" onclick="exportToExcel()">📊 Download CSV</button>
-                    <button class="btn btn-success btn-icon" onclick="backupToGoogleSheets()">📤 Backup ke Google Sheets</button>
                 </div>
                 <div class="table-wrapper">
                     <table id="studentTable">
@@ -278,18 +261,20 @@
                             <tr><th>No</th><th>NIS</th><th>Nama Lengkap</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Alamat</th><th>No HP</th><th>Foto</th><th>Aksi</th></tr>
                         </thead>
                         <tbody id="tableBody">
-                            <tr><td colspan="9" style="text-align: center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>
+                            <tr><td colspan="9" style="text-align:center;">📭 Memuat data...</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p style="margin-top: 16px; font-size: 12px; color: #999; text-align: center;">
-                    💡 Data tersimpan otomatis di browser Anda. Klik "Backup ke Google Sheets" untuk menyimpan permanen.
-                </p>
             </div>
         </div>
     </div>
 
     <script>
+        // ==================================================
+        // GANTI DENGAN URL DEPLOY APPS SCRIPT ANDA!
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMZI4CGbqD_ATi5CZ9KFnnmSf8mhVmzzxrIef-w65P2RS3dH8eorBd9CIGq8LMomYr/exec';
+        // ==================================================
+        
         let students = [];
 
         function showToast(msg, type = 'success') {
@@ -304,6 +289,10 @@
             }, 3000);
         }
 
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'flex' : 'none';
+        }
+
         function previewPhoto(input) {
             const preview = document.getElementById('photoPreview');
             if (input.files && input.files[0]) {
@@ -315,9 +304,7 @@
                     return;
                 }
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
-                }
+                reader.onload = (e) => preview.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
                 reader.readAsDataURL(file);
             }
         }
@@ -325,6 +312,69 @@
         function hapusFoto() {
             document.getElementById('foto').value = '';
             document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
+        }
+
+        // JSONP Request untuk GET
+        function jsonpRequest(url, callback) {
+            const script = document.createElement('script');
+            const callbackName = 'jsonp_callback_' + Date.now();
+            window[callbackName] = function(data) {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                callback(data);
+            };
+            const separator = url.indexOf('?') === -1 ? '?' : '&';
+            script.src = url + separator + 'callback=' + callbackName;
+            document.body.appendChild(script);
+        }
+
+        // POST dengan JSONP (menggunakan iframe)
+        function jsonpPost(url, data, callback) {
+            const callbackName = 'jsonp_post_callback_' + Date.now();
+            window[callbackName] = function(result) {
+                delete window[callbackName];
+                document.body.removeChild(iframe);
+                callback(result);
+            };
+            
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = url + '?callback=' + callbackName;
+            form.target = callbackName;
+            form.style.display = 'none';
+            
+            const input = document.createElement('input');
+            input.name = 'postData';
+            input.value = JSON.stringify(data);
+            form.appendChild(input);
+            
+            const iframe = document.createElement('iframe');
+            iframe.name = callbackName;
+            iframe.style.display = 'none';
+            
+            document.body.appendChild(iframe);
+            document.body.appendChild(form);
+            form.submit();
+            
+            setTimeout(() => {
+                document.body.removeChild(form);
+            }, 1000);
+        }
+
+        function loadData() {
+            showLoading(true);
+            jsonpRequest(SCRIPT_URL, (result) => {
+                if (result.success && result.data) {
+                    students = result.data;
+                    renderTable();
+                    updateTotal();
+                    document.getElementById('syncStatus').innerHTML = `✅ Auto Sync | ${new Date().toLocaleTimeString()}`;
+                    showToast(`Memuat ${students.length} data siswa`, 'success');
+                } else {
+                    showToast('Gagal memuat data: ' + (result.error || 'Unknown error'), 'error');
+                }
+                showLoading(false);
+            });
         }
 
         function simpanData() {
@@ -336,66 +386,53 @@
             const no_hp = document.getElementById('no_hp').value;
             const fotoFile = document.getElementById('foto').files[0];
 
-            if (!nis || !nama) {
-                showToast('NIS dan Nama Lengkap wajib diisi!', 'error');
-                return;
-            }
+            if (!nis || !nama) return showToast('NIS dan Nama wajib diisi!', 'error');
 
+            showLoading(true);
+            
+            const processSave = (fotoUrl) => {
+                const newStudent = { 
+                    nis, nama, 
+                    tempat_lahir: tempat_lahir || '', 
+                    tanggal_lahir: tanggal_lahir || '', 
+                    alamat: alamat || '', 
+                    no_hp: no_hp || '', 
+                    foto: fotoUrl || '' 
+                };
+                
+                jsonpPost(SCRIPT_URL + '?action=save', newStudent, (result) => {
+                    if (result.success) {
+                        showToast('Data berhasil disimpan ke Google Sheets!', 'success');
+                        loadData();
+                        resetForm();
+                    } else {
+                        showToast(result.error || 'Gagal menyimpan', 'error');
+                    }
+                    showLoading(false);
+                });
+            };
+            
             if (fotoFile) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    simpanKeLocalStorage(nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, e.target.result);
-                };
+                reader.onload = (e) => processSave(e.target.result);
                 reader.readAsDataURL(fotoFile);
             } else {
-                simpanKeLocalStorage(nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, '');
+                processSave('');
             }
-        }
-
-        function simpanKeLocalStorage(nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, fotoUrl) {
-            const existingIndex = students.findIndex(s => s.nis === nis);
-            
-            const newStudent = {
-                nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, 
-                foto: fotoUrl,
-                tanggal_entry: new Date().toLocaleString('id-ID')
-            };
-
-            if (existingIndex >= 0) {
-                students[existingIndex] = newStudent;
-                showToast('Data berhasil diupdate!', 'success');
-            } else {
-                students.push(newStudent);
-                showToast('Data berhasil disimpan!', 'success');
-            }
-
-            localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
-            renderTable();
-            updateTotal();
-            resetForm();
-            updateStatus();
         }
 
         function hapusData(nis) {
-            if (!confirm(`Yakin ingin menghapus data siswa dengan NIS ${nis}?`)) return;
-            students = students.filter(s => s.nis !== nis);
-            localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
-            renderTable();
-            updateTotal();
-            updateStatus();
-            showToast('Data berhasil dihapus!', 'success');
-        }
-
-        function hapusSemua() {
-            if (!confirm('⚠️ PERINGATAN: Ini akan menghapus SEMUA data siswa! Lanjutkan?')) return;
-            if (confirm('Apakah Anda benar-benar yakin? Data tidak dapat dikembalikan!')) {
-                students = [];
-                localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
-                renderTable();
-                updateTotal();
-                updateStatus();
-                showToast('Semua data berhasil dihapus', 'info');
-            }
+            if (!confirm(`Hapus data NIS ${nis}?`)) return;
+            showLoading(true);
+            jsonpRequest(`${SCRIPT_URL}?action=delete&nis=${nis}`, (result) => {
+                if (result.success) {
+                    showToast('Data berhasil dihapus!', 'success');
+                    loadData();
+                } else {
+                    showToast('Gagal hapus data', 'error');
+                }
+                showLoading(false);
+            });
         }
 
         function editData(nis) {
@@ -411,7 +448,7 @@
                     document.getElementById('photoPreview').innerHTML = `<img src="${student.foto}" style="width:100%;height:100%;object-fit:cover;">`;
                 }
                 document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
-                showToast(`Mengedit data: ${student.nama}`, 'info');
+                showToast(`Edit data: ${student.nama}`, 'info');
             }
         }
 
@@ -421,44 +458,23 @@
                 tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>';
                 return;
             }
-
-            tbody.innerHTML = students.map((student, index) => `
+            tbody.innerHTML = students.map((s, i) => `
                 <tr>
-                    <td>${index + 1}</td>
-                    <td><strong>${escapeHtml(student.nis)}</strong></td>
-                    <td>${escapeHtml(student.nama)}</td>
-                    <td>${escapeHtml(student.tempat_lahir || '-')}</td>
-                    <td>${student.tanggal_lahir || '-'}</td>
-                    <td style="max-width:200px;">${escapeHtml(student.alamat || '-')}</td>
-                    <td>${student.no_hp || '-'}</td>
-                    <td>${student.foto ? `<img src="${student.foto}" class="student-photo" onclick="window.open('${student.foto}', '_blank')" title="Klik untuk perbesar">` : '<span style="color:#999;">📷 No photo</span>'}</td>
-                    <td class="no-print">
-                        <div class="action-btns">
-                            <button class="btn btn-secondary btn-icon" onclick="editData('${student.nis}')">✏️ Edit</button>
-                            <button class="btn btn-danger btn-icon" onclick="hapusData('${student.nis}')">🗑️ Hapus</button>
-                        </div>
-                    </td>
+                    <td>${i+1}</td>
+                    <td><strong>${escapeHtml(s.nis)}</strong></td>
+                    <td>${escapeHtml(s.nama)}</td>
+                    <td>${escapeHtml(s.tempat_lahir || '-')}</td>
+                    <td>${s.tanggal_lahir || '-'}</td>
+                    <td>${escapeHtml(s.alamat || '-')}</td>
+                    <td>${s.no_hp || '-'}</td>
+                    <td>${s.foto ? `<img src="${s.foto}" class="student-photo" onclick="window.open('${s.foto}','_blank')">` : '-'}</td>
+                    <td class="no-print"><div class="action-btns"><button class="btn btn-secondary btn-icon" onclick="editData('${s.nis}')">✏️ Edit</button><button class="btn btn-danger btn-icon" onclick="hapusData('${s.nis}')">🗑️ Hapus</button></div></td>
                 </tr>
             `).join('');
         }
 
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function updateTotal() {
-            document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`;
-        }
-
-        function updateStatus() {
-            const statusDiv = document.getElementById('syncStatus');
-            const count = students.length;
-            statusDiv.innerHTML = `💾 Data tersimpan di browser | ${count} siswa terdaftar`;
-        }
-
+        function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+        function updateTotal() { document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`; }
         function resetForm() {
             document.getElementById('nis').value = '';
             document.getElementById('nama').value = '';
@@ -469,14 +485,12 @@
             document.getElementById('foto').value = '';
             document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
         }
-
         function printTable() { window.print(); }
-
         function exportToExcel() {
-            if (!students.length) { showToast('Tidak ada data untuk diexport!', 'error'); return; }
-            let csv = "No,NIS,Nama Lengkap,Tempat Lahir,Tanggal Lahir,Alamat,No HP,Link Foto,Tanggal Entry\n";
+            if (!students.length) return showToast('Tidak ada data', 'error');
+            let csv = "No,NIS,Nama Lengkap,Tempat Lahir,Tanggal Lahir,Alamat,No HP,Link Foto\n";
             students.forEach((s, i) => {
-                csv += `"${i+1}","${s.nis}","${s.nama}","${s.tempat_lahir || ''}","${s.tanggal_lahir || ''}","${s.alamat || ''}","${s.no_hp || ''}","${s.foto || ''}","${s.tanggal_entry || ''}"\n`;
+                csv += `"${i+1}","${s.nis}","${s.nama}","${s.tempat_lahir || ''}","${s.tanggal_lahir || ''}","${s.alamat || ''}","${s.no_hp || ''}","${s.foto || ''}"\n`;
             });
             const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8' });
             const link = document.createElement('a');
@@ -485,28 +499,10 @@
             link.download = `buku_induk_siswa_${new Date().toISOString().split('T')[0]}.csv`;
             link.click();
             URL.revokeObjectURL(url);
-            showToast('Download CSV berhasil! File siap di-import ke Google Sheets', 'success');
+            showToast('Download CSV berhasil!', 'success');
         }
 
-        function backupToGoogleSheets() {
-            if (!students.length) { showToast('Tidak ada data untuk dibackup!', 'error'); return; }
-            exportToExcel();
-            showToast('File CSV sudah di-download! Buka Google Sheets dan import file ini.', 'info');
-        }
-
-        // Load data dari localStorage
-        function loadLocalData() {
-            const savedData = localStorage.getItem('bukuIndukSiswa');
-            if (savedData) {
-                students = JSON.parse(savedData);
-                renderTable();
-                updateTotal();
-                updateStatus();
-                showToast(`Memuat ${students.length} data siswa`, 'success');
-            }
-        }
-
-        loadLocalData();
+        loadData();
     </script>
 </body>
 </html>
