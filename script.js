@@ -2,7 +2,7 @@
 // KONFIGURASI SUPABASE
 // GANTI DENGAN URL DAN ANON KEY DARI PROJECT SUPABASE ANDA!
 // ==================================================
-const SUPABASE_URL = 'https://xxxxxxxxxxxxxxx.supabase.co';
+const SUPABASE_URL = 'sb_publishable_HKReNzsygbZ4zCandzHjqw_77wXxbhM.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxxxxxxxxxxxx';
 
 // Inisialisasi Supabase
