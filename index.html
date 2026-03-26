@@ -114,6 +114,7 @@
         .btn-secondary { background: #f0ede0; color: #1f4d2c; border: 1px solid #d4af37; }
         .btn-danger { background: #dc3545; color: white; }
         .btn-info { background: #17a2b8; color: white; }
+        .btn-success { background: #28a745; color: white; }
         .table-section {
             background: white;
             border-radius: 20px;
@@ -177,13 +178,21 @@
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        .info-card {
+            background: #e8f0e5;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d4af37;
+        }
         @media print {
-            .btn-group, .form-section, .action-btns, .no-print { display: none; }
+            .btn-group, .form-section, .action-btns, .no-print, .info-card { display: none; }
         }
         @media (max-width: 768px) {
             .content { padding: 20px; }
             .form-grid { grid-template-columns: 1fr; }
             .btn-group .btn { width: 100%; }
+            th, td { font-size: 11px; padding: 8px; }
         }
     </style>
 </head>
@@ -195,11 +204,12 @@
             <h1>📖 BUKU INDUK SISWA</h1>
             <p>MA Bidayatul Hidayah | Tahun Ajaran 2024/2025</p>
             <div class="sync-status" id="syncStatus">
-                ✅ Auto Sync ke Google Sheets
+                💾 Data tersimpan di browser & Google Sheets
             </div>
         </div>
 
         <div class="content">
+            <!-- Form Input Data -->
             <div class="form-section">
                 <h2>📝 Formulir Pendaftaran / Edit Siswa</h2>
                 <div class="form-grid">
@@ -242,10 +252,10 @@
                 <div class="btn-group">
                     <button class="btn btn-primary" onclick="simpanData()">💾 Simpan Siswa</button>
                     <button class="btn btn-secondary" onclick="resetForm()">✖️ Batal Edit</button>
-                    <button class="btn btn-info" onclick="loadData()">🔄 Refresh Data</button>
                 </div>
             </div>
 
+            <!-- Tabel Data -->
             <div class="table-section">
                 <div class="table-header">
                     <h2>📋 Daftar Siswa</h2>
@@ -253,7 +263,9 @@
                 </div>
                 <div class="btn-group" style="margin-bottom: 20px;">
                     <button class="btn btn-secondary btn-icon" onclick="printTable()">🖨️ Cetak Buku Induk</button>
+                    <button class="btn btn-danger btn-icon" onclick="hapusSemua()">🗑️ Hapus Semua</button>
                     <button class="btn btn-info btn-icon" onclick="exportToExcel()">📊 Download CSV</button>
+                    <button class="btn btn-success btn-icon" onclick="backupToSheets()">☁️ Backup ke Google Sheets</button>
                 </div>
                 <div class="table-wrapper">
                     <table id="studentTable">
@@ -261,19 +273,25 @@
                             <tr><th>No</th><th>NIS</th><th>Nama Lengkap</th><th>Tempat Lahir</th><th>Tgl Lahir</th><th>Alamat</th><th>No HP</th><th>Foto</th><th>Aksi</th></tr>
                         </thead>
                         <tbody id="tableBody">
-                            <tr><td colspan="9" style="text-align:center;">📭 Memuat data...</td></tr>
+                            <tr><td colspan="9" style="text-align:center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="info-card">
+                <strong>📌 Cara Kerja:</strong><br>
+                • Data disimpan di <strong>localStorage browser</strong> (tetap ada meskipun browser ditutup)<br>
+                • Klik <strong>"Backup ke Google Sheets"</strong> untuk menyimpan permanen ke Google Sheets<br>
+                • Data yang sudah di-backup bisa dilihat di: <a href="https://bit.ly/IndukSiswaBook" target="_blank">bit.ly/IndukSiswaBook</a>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================================================
-        // GANTI DENGAN URL DEPLOY APPS SCRIPT ANDA!
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMZI4CGbqD_ATi5CZ9KFnnmSf8mhVmzzxrIef-w65P2RS3dH8eorBd9CIGq8LMomYr/exec';
-        // ==================================================
+        // Konfigurasi Google Sheets CSV URL (ganti dengan URL publish Anda)
+        const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTJ06CeXTOXfCA5LUhKeThWVkW3feApHWviAPDjykRT6P4qSFAAH5G68J2G65JVOSJuzo5K1uG2JPzv/pub?output=csv';
         
         let students = [];
 
@@ -314,69 +332,6 @@
             document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
         }
 
-        // JSONP Request untuk GET
-        function jsonpRequest(url, callback) {
-            const script = document.createElement('script');
-            const callbackName = 'jsonp_callback_' + Date.now();
-            window[callbackName] = function(data) {
-                delete window[callbackName];
-                document.body.removeChild(script);
-                callback(data);
-            };
-            const separator = url.indexOf('?') === -1 ? '?' : '&';
-            script.src = url + separator + 'callback=' + callbackName;
-            document.body.appendChild(script);
-        }
-
-        // POST dengan JSONP (menggunakan iframe)
-        function jsonpPost(url, data, callback) {
-            const callbackName = 'jsonp_post_callback_' + Date.now();
-            window[callbackName] = function(result) {
-                delete window[callbackName];
-                document.body.removeChild(iframe);
-                callback(result);
-            };
-            
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = url + '?callback=' + callbackName;
-            form.target = callbackName;
-            form.style.display = 'none';
-            
-            const input = document.createElement('input');
-            input.name = 'postData';
-            input.value = JSON.stringify(data);
-            form.appendChild(input);
-            
-            const iframe = document.createElement('iframe');
-            iframe.name = callbackName;
-            iframe.style.display = 'none';
-            
-            document.body.appendChild(iframe);
-            document.body.appendChild(form);
-            form.submit();
-            
-            setTimeout(() => {
-                document.body.removeChild(form);
-            }, 1000);
-        }
-
-        function loadData() {
-            showLoading(true);
-            jsonpRequest(SCRIPT_URL, (result) => {
-                if (result.success && result.data) {
-                    students = result.data;
-                    renderTable();
-                    updateTotal();
-                    document.getElementById('syncStatus').innerHTML = `✅ Auto Sync | ${new Date().toLocaleTimeString()}`;
-                    showToast(`Memuat ${students.length} data siswa`, 'success');
-                } else {
-                    showToast('Gagal memuat data: ' + (result.error || 'Unknown error'), 'error');
-                }
-                showLoading(false);
-            });
-        }
-
         function simpanData() {
             const nis = document.getElementById('nis').value.trim();
             const nama = document.getElementById('nama').value.trim();
@@ -386,53 +341,66 @@
             const no_hp = document.getElementById('no_hp').value;
             const fotoFile = document.getElementById('foto').files[0];
 
-            if (!nis || !nama) return showToast('NIS dan Nama wajib diisi!', 'error');
+            if (!nis || !nama) {
+                showToast('NIS dan Nama Lengkap wajib diisi!', 'error');
+                return;
+            }
 
-            showLoading(true);
-            
-            const processSave = (fotoUrl) => {
-                const newStudent = { 
-                    nis, nama, 
-                    tempat_lahir: tempat_lahir || '', 
-                    tanggal_lahir: tanggal_lahir || '', 
-                    alamat: alamat || '', 
-                    no_hp: no_hp || '', 
-                    foto: fotoUrl || '' 
-                };
-                
-                jsonpPost(SCRIPT_URL + '?action=save', newStudent, (result) => {
-                    if (result.success) {
-                        showToast('Data berhasil disimpan ke Google Sheets!', 'success');
-                        loadData();
-                        resetForm();
-                    } else {
-                        showToast(result.error || 'Gagal menyimpan', 'error');
-                    }
-                    showLoading(false);
-                });
-            };
-            
             if (fotoFile) {
                 const reader = new FileReader();
-                reader.onload = (e) => processSave(e.target.result);
+                reader.onload = function(e) {
+                    simpanKeLocalStorage(nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, e.target.result);
+                };
                 reader.readAsDataURL(fotoFile);
             } else {
-                processSave('');
+                simpanKeLocalStorage(nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, '');
             }
         }
 
+        function simpanKeLocalStorage(nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, fotoUrl) {
+            const existingIndex = students.findIndex(s => s.nis === nis);
+            
+            const newStudent = {
+                nis, nama, tempat_lahir, tanggal_lahir, alamat, no_hp, 
+                foto: fotoUrl,
+                tanggal_entry: new Date().toLocaleString('id-ID')
+            };
+
+            if (existingIndex >= 0) {
+                students[existingIndex] = newStudent;
+                showToast('Data berhasil diupdate!', 'success');
+            } else {
+                students.push(newStudent);
+                showToast('Data berhasil disimpan!', 'success');
+            }
+
+            localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+            renderTable();
+            updateTotal();
+            resetForm();
+            updateStatus();
+        }
+
         function hapusData(nis) {
-            if (!confirm(`Hapus data NIS ${nis}?`)) return;
-            showLoading(true);
-            jsonpRequest(`${SCRIPT_URL}?action=delete&nis=${nis}`, (result) => {
-                if (result.success) {
-                    showToast('Data berhasil dihapus!', 'success');
-                    loadData();
-                } else {
-                    showToast('Gagal hapus data', 'error');
-                }
-                showLoading(false);
-            });
+            if (!confirm(`Yakin ingin menghapus data siswa dengan NIS ${nis}?`)) return;
+            students = students.filter(s => s.nis !== nis);
+            localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+            renderTable();
+            updateTotal();
+            updateStatus();
+            showToast('Data berhasil dihapus!', 'success');
+        }
+
+        function hapusSemua() {
+            if (!confirm('⚠️ PERINGATAN: Ini akan menghapus SEMUA data siswa! Lanjutkan?')) return;
+            if (confirm('Apakah Anda benar-benar yakin? Data tidak dapat dikembalikan!')) {
+                students = [];
+                localStorage.setItem('bukuIndukSiswa', JSON.stringify(students));
+                renderTable();
+                updateTotal();
+                updateStatus();
+                showToast('Semua data berhasil dihapus', 'info');
+            }
         }
 
         function editData(nis) {
@@ -448,7 +416,7 @@
                     document.getElementById('photoPreview').innerHTML = `<img src="${student.foto}" style="width:100%;height:100%;object-fit:cover;">`;
                 }
                 document.querySelector('.form-section').scrollIntoView({ behavior: 'smooth' });
-                showToast(`Edit data: ${student.nama}`, 'info');
+                showToast(`Mengedit data: ${student.nama}`, 'info');
             }
         }
 
@@ -458,23 +426,44 @@
                 tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>';
                 return;
             }
-            tbody.innerHTML = students.map((s, i) => `
+
+            tbody.innerHTML = students.map((student, index) => `
                 <tr>
-                    <td>${i+1}</td>
-                    <td><strong>${escapeHtml(s.nis)}</strong></td>
-                    <td>${escapeHtml(s.nama)}</td>
-                    <td>${escapeHtml(s.tempat_lahir || '-')}</td>
-                    <td>${s.tanggal_lahir || '-'}</td>
-                    <td>${escapeHtml(s.alamat || '-')}</td>
-                    <td>${s.no_hp || '-'}</td>
-                    <td>${s.foto ? `<img src="${s.foto}" class="student-photo" onclick="window.open('${s.foto}','_blank')">` : '-'}</td>
-                    <td class="no-print"><div class="action-btns"><button class="btn btn-secondary btn-icon" onclick="editData('${s.nis}')">✏️ Edit</button><button class="btn btn-danger btn-icon" onclick="hapusData('${s.nis}')">🗑️ Hapus</button></div></td>
+                    <td>${index + 1}</td>
+                    <td><strong>${escapeHtml(student.nis)}</strong></td>
+                    <td>${escapeHtml(student.nama)}</td>
+                    <td>${escapeHtml(student.tempat_lahir || '-')}</td>
+                    <td>${student.tanggal_lahir || '-'}</td>
+                    <td style="max-width:200px;">${escapeHtml(student.alamat || '-')}</td>
+                    <td>${student.no_hp || '-'}</td>
+                    <td>${student.foto ? `<img src="${student.foto}" class="student-photo" onclick="window.open('${student.foto}', '_blank')" title="Klik untuk perbesar">` : '<span style="color:#999;">📷 No photo</span>'}</td>
+                    <td class="no-print">
+                        <div class="action-btns">
+                            <button class="btn btn-secondary btn-icon" onclick="editData('${student.nis}')">✏️ Edit</button>
+                            <button class="btn btn-danger btn-icon" onclick="hapusData('${student.nis}')">🗑️ Hapus</button>
+                        </div>
+                    </td>
                 </tr>
             `).join('');
         }
 
-        function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
-        function updateTotal() { document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`; }
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function updateTotal() {
+            document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`;
+        }
+
+        function updateStatus() {
+            const statusDiv = document.getElementById('syncStatus');
+            const count = students.length;
+            statusDiv.innerHTML = `💾 Data tersimpan di browser | ${count} siswa terdaftar`;
+        }
+
         function resetForm() {
             document.getElementById('nis').value = '';
             document.getElementById('nama').value = '';
@@ -485,12 +474,14 @@
             document.getElementById('foto').value = '';
             document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
         }
+
         function printTable() { window.print(); }
+
         function exportToExcel() {
-            if (!students.length) return showToast('Tidak ada data', 'error');
-            let csv = "No,NIS,Nama Lengkap,Tempat Lahir,Tanggal Lahir,Alamat,No HP,Link Foto\n";
+            if (!students.length) { showToast('Tidak ada data untuk diexport!', 'error'); return; }
+            let csv = "No,NIS,Nama Lengkap,Tempat Lahir,Tanggal Lahir,Alamat,No HP,Link Foto,Tanggal Entry\n";
             students.forEach((s, i) => {
-                csv += `"${i+1}","${s.nis}","${s.nama}","${s.tempat_lahir || ''}","${s.tanggal_lahir || ''}","${s.alamat || ''}","${s.no_hp || ''}","${s.foto || ''}"\n`;
+                csv += `"${i+1}","${s.nis}","${s.nama}","${s.tempat_lahir || ''}","${s.tanggal_lahir || ''}","${s.alamat || ''}","${s.no_hp || ''}","${s.foto || ''}","${s.tanggal_entry || ''}"\n`;
             });
             const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8' });
             const link = document.createElement('a');
@@ -502,7 +493,25 @@
             showToast('Download CSV berhasil!', 'success');
         }
 
-        loadData();
+        function backupToSheets() {
+            if (!students.length) { showToast('Tidak ada data untuk dibackup!', 'error'); return; }
+            exportToExcel();
+            showToast('File CSV siap! Buka Google Sheets dan import file ini.', 'info');
+        }
+
+        // Load data dari localStorage
+        function loadLocalData() {
+            const savedData = localStorage.getItem('bukuIndukSiswa');
+            if (savedData) {
+                students = JSON.parse(savedData);
+                renderTable();
+                updateTotal();
+                updateStatus();
+                showToast(`Memuat ${students.length} data siswa`, 'success');
+            }
+        }
+
+        loadLocalData();
     </script>
 </body>
 </html>
