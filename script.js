@@ -2,8 +2,8 @@
 // KONFIGURASI SUPABASE
 // GANTI DENGAN URL DAN ANON KEY DARI PROJECT SUPABASE ANDA!
 // ==================================================
-const SUPABASE_URL = 'https://HKReNzsygbZ4zCandzHjqw_77wXxbhM.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyaWRmaHBucGR3bHNjZnpiZG9xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MzI4NzYsImV4cCI6MjA5MDEwODg3Nn0.-dFlLDJzavuVI8EY8Y8Jgy1EVO--Wt2bbxa7lGPpXLo';
+const SUPABASE_URL = 'https://yridfhpnpdwlscfzbdoq.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_HKReNzsygbZ4zCandzHjqw_77wXxbhM';
 
 // Inisialisasi Supabase (gunakan window.supabase yang sudah ada)
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
