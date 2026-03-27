@@ -2,11 +2,11 @@
 // KONFIGURASI SUPABASE
 // GANTI DENGAN URL DAN ANON KEY DARI PROJECT SUPABASE ANDA!
 // ==================================================
-const SUPABASE_URL = 'sb_publishable_HKReNzsygbZ4zCandzHjqw_77wXxbhM.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxxxxxxxxxxxx';
+const SUPABASE_URL = 'https://HKReNzsygbZ4zCandzHjqw_77wXxbhM.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyaWRmaHBucGR3bHNjZnpiZG9xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MzI4NzYsImV4cCI6MjA5MDEwODg3Nn0.-dFlLDJzavuVI8EY8Y8Jgy1EVO--Wt2bbxa7lGPpXLo';
 
-// Inisialisasi Supabase
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Inisialisasi Supabase (gunakan window.supabase yang sudah ada)
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Nama tabel di Supabase
 const TABLE_NAME = 'siswa';
@@ -33,11 +33,15 @@ function showToast(msg, type = 'success') {
 }
 
 function showLoading(show) {
-    document.getElementById('loading').style.display = show ? 'flex' : 'none';
+    const loadingEl = document.getElementById('loading');
+    if (loadingEl) {
+        loadingEl.style.display = show ? 'flex' : 'none';
+    }
 }
 
 function updateStatus(message, isError = false) {
     const statusDiv = document.getElementById('syncStatus');
+    if (!statusDiv) return;
     statusDiv.innerHTML = message;
     statusDiv.style.background = isError ? 'rgba(220,53,69,0.8)' : 'rgba(40,167,69,0.8)';
     setTimeout(() => {
@@ -64,26 +68,28 @@ function previewPhoto(input) {
         if (file.size > 2 * 1024 * 1024) {
             showToast('Ukuran foto maksimal 2MB!', 'error');
             input.value = '';
-            preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
+            if (preview) preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
             return;
         }
         if (!file.type.match('image.*')) {
             showToast('Hanya file gambar yang diperbolehkan!', 'error');
             input.value = '';
-            preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
+            if (preview) preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
             return;
         }
         const reader = new FileReader();
         reader.onload = (e) => {
-            preview.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
+            if (preview) preview.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
         };
         reader.readAsDataURL(file);
     }
 }
 
 function hapusFoto() {
-    document.getElementById('foto').value = '';
-    document.getElementById('photoPreview').innerHTML = '<span>📸 Klik untuk upload foto</span>';
+    const fotoInput = document.getElementById('foto');
+    const preview = document.getElementById('photoPreview');
+    if (fotoInput) fotoInput.value = '';
+    if (preview) preview.innerHTML = '<span>📸 Klik untuk upload foto</span>';
     showToast('Foto dihapus', 'info');
 }
 
@@ -96,7 +102,7 @@ async function uploadPhotoToStorage(file, nis) {
     const fileName = `${nis}_${Date.now()}.jpg`;
     const filePath = `foto_siswa/${fileName}`;
     
-    const { data, error } = await supabase.storage
+    const { data, error } = await supabaseClient.storage
         .from('foto-siswa')
         .upload(filePath, file);
     
@@ -106,7 +112,7 @@ async function uploadPhotoToStorage(file, nis) {
     }
     
     // Dapatkan URL publik
-    const { data: urlData } = supabase.storage
+    const { data: urlData } = supabaseClient.storage
         .from('foto-siswa')
         .getPublicUrl(filePath);
     
@@ -117,7 +123,7 @@ async function uploadPhotoToStorage(file, nis) {
 async function loadDataFromSupabase() {
     showLoading(true);
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from(TABLE_NAME)
             .select('*')
             .order('created_at', { ascending: false });
@@ -139,7 +145,7 @@ async function loadDataFromSupabase() {
 
 // Simpan data ke Supabase
 async function saveToSupabase(studentData) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from(TABLE_NAME)
         .insert([studentData])
         .select();
@@ -150,7 +156,7 @@ async function saveToSupabase(studentData) {
 
 // Update data di Supabase
 async function updateInSupabase(id, studentData) {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from(TABLE_NAME)
         .update(studentData)
         .eq('id', id)
@@ -162,7 +168,7 @@ async function updateInSupabase(id, studentData) {
 
 // Hapus data dari Supabase
 async function deleteFromSupabase(id) {
-    const { error } = await supabase
+    const { error } = await supabaseClient
         .from(TABLE_NAME)
         .delete()
         .eq('id', id);
@@ -172,7 +178,7 @@ async function deleteFromSupabase(id) {
 
 // Hapus semua data
 async function deleteAllFromSupabase() {
-    const { error } = await supabase
+    const { error } = await supabaseClient
         .from(TABLE_NAME)
         .delete()
         .neq('id', 0);
@@ -322,6 +328,8 @@ function editData(id, student) {
 
 function renderTable() {
     const tbody = document.getElementById('tableBody');
+    if (!tbody) return;
+    
     if (!students.length) {
         tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;">📭 Belum ada data siswa. Silakan tambahkan melalui formulir.</td></tr>';
         return;
@@ -348,7 +356,10 @@ function renderTable() {
 }
 
 function updateTotal() {
-    document.getElementById('totalSiswa').innerHTML = `Total Siswa: ${students.length}`;
+    const totalSpan = document.getElementById('totalSiswa');
+    if (totalSpan) {
+        totalSpan.innerHTML = `Total Siswa: ${students.length}`;
+    }
 }
 
 // ==================================================
@@ -438,12 +449,20 @@ function exportToExcel() {
 // INITIALIZATION
 // ==================================================
 
-// Event Listeners
-document.getElementById('btnSimpan').addEventListener('click', simpanData);
-document.getElementById('btnBatal').addEventListener('click', resetForm);
-document.getElementById('btnCetak').addEventListener('click', printTable);
-document.getElementById('btnHapusSemua').addEventListener('click', hapusSemua);
-document.getElementById('btnExportExcel').addEventListener('click', exportToExcel);
-
-// Load data awal
-loadDataFromSupabase();
+// Event Listeners (pastikan elemen sudah ada)
+document.addEventListener('DOMContentLoaded', function() {
+    const btnSimpan = document.getElementById('btnSimpan');
+    const btnBatal = document.getElementById('btnBatal');
+    const btnCetak = document.getElementById('btnCetak');
+    const btnHapusSemua = document.getElementById('btnHapusSemua');
+    const btnExportExcel = document.getElementById('btnExportExcel');
+    
+    if (btnSimpan) btnSimpan.addEventListener('click', simpanData);
+    if (btnBatal) btnBatal.addEventListener('click', resetForm);
+    if (btnCetak) btnCetak.addEventListener('click', printTable);
+    if (btnHapusSemua) btnHapusSemua.addEventListener('click', hapusSemua);
+    if (btnExportExcel) btnExportExcel.addEventListener('click', exportToExcel);
+    
+    // Load data awal
+    loadDataFromSupabase();
+});
