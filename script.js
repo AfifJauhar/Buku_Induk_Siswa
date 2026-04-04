@@ -100,20 +100,26 @@ function hapusFoto() {
 // Upload foto ke Supabase Storage
 async function uploadPhotoToStorage(file, nis) {
     const fileName = `${nis}_${Date.now()}.jpg`;
-    const filePath = `foto_siswa/${fileName}`;
+    const filePath = `foto_siswa/${fileName}`;  // ← Ganti jadi foto_siswa
+    
+    console.log('Uploading to bucket: foto_siswa');
     
     const { data, error } = await supabaseClient.storage
-        .from('foto-siswa')
-        .upload(filePath, file);
+        .from('foto_siswa')  // ← Ganti jadi foto_siswa
+        .upload(filePath, file, {
+            cacheControl: '3600',
+            upsert: true
+        });
     
     if (error) {
-        console.error('Upload error:', error);
+        console.error('Upload error detail:', error);
         throw error;
     }
     
-    // Dapatkan URL publik
+    console.log('Upload success:', data);
+    
     const { data: urlData } = supabaseClient.storage
-        .from('foto-siswa')
+        .from('foto_siswa')  // ← Ganti jadi foto_siswa
         .getPublicUrl(filePath);
     
     return urlData.publicUrl;
